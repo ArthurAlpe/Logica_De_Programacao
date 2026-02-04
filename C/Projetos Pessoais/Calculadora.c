@@ -14,7 +14,7 @@ int main(){
     int i;
 
     // Variaveis de soma
-    int qtdSoma = 0;
+    int qtdSoma = 0; 
     int soma = 0;
     int numSoma = 0;
     
