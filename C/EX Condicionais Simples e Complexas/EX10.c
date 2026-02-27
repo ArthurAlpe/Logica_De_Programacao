@@ -29,9 +29,9 @@ int main()
     
     float media = ((nota1 * 2) + (nota2 * 3) + (nota3 * 5)) / (2 + 3 + 5);
     
-    if (media < 5) {
+    if (media < 4) {
         printf("O aluno %s ficou com a nota %.2f Conceito D", nome, media);
-    } else if (media >= 5 && media <= 6) {
+    } else if (media >= 4 && media <= 6) {
         printf("O aluno %s ficou com a nota %.2f Conceito C", nome, media);
     } else if (media >= 7 && media <= 8) {
         printf("O aluno %s ficou com a nota %.2f Conceito B", nome, media);
