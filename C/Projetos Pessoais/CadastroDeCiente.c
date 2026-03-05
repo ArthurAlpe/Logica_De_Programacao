@@ -233,6 +233,7 @@ void cadastro_cliente ( Lista *L ) {
 void alterecao_cliente ( Lista *L ) {
     int resp;
     int codigo;
+    int opcao;
 
     do {
         tela();
@@ -244,85 +245,134 @@ void alterecao_cliente ( Lista *L ) {
         scanf("%d", &codigo);
         fflush(stdin);
 
+        
         int encontrado = 0;
         for (int i = 0; i < L->fim; i++) {
             if (L->ficha[i].codigo == codigo) {
                 encontrado = 1;
-                gotoxy(24,9);
-                printf("NOME ATUAL.........: %s", L->ficha[i].nome);
-                gotoxy(24,10);
-                printf("NOME NOVO..........: ");
-                
-                gotoxy(24,11);
-                printf("ENDERECO ATUAL.....: %s", L->ficha[i].endereco);
-                gotoxy(24,12);
-                printf("ENDERECO NOVO......: ");
-                
-                gotoxy(24,13);
-                printf("TELEFONE ATUAL.....: %s", L->ficha[i].telefone);
-                gotoxy(24,14);
-                printf("TELEFONE NOVO......: ");
-                
-                gotoxy(24,15);
-                printf("CPF ATUAL..........: %s", L->ficha[i].cpf);
-                gotoxy(24,16);
-                printf("CPF NOVO...........: ");
-                
-                gotoxy(24,17);
-                printf("EMAIL ATUAL........: %s", L->ficha[i].email);
-                gotoxy(24,18);
-                printf("EMAIL NOVO.........: ");
-                
-                gotoxy(24,19);
-                printf("NASCIMENTO ATUAL...: %s", L->ficha[i].dt_nascimento);
-                gotoxy(24,20);
-                printf("NASCIMENTO NOVO....: ");
 
-                // Nome
-                gotoxy(45,10);
-                fgets(L->ficha[i].nome, sizeof(L->ficha[i].nome), stdin);
-                L->ficha[i].nome[strcspn(L->ficha[i].nome, "\n")] = '\0';
+                Tela_Cliente();
+                gotoxy(21,9);
+                printf("1");
+                gotoxy(45,9);
+                printf(" %s", L->ficha[i].nome);
+                gotoxy(21,11);
+                printf("2");
+                gotoxy(45,11);
+                printf(" %s", L->ficha[i].endereco);
+                gotoxy(21,13);
+                printf("3");
+                gotoxy(45,13);
+                printf(" %s", L->ficha[i].telefone);
+                gotoxy(21,15);
+                printf("4");
+                gotoxy(45,15);
+                printf(" %s", L->ficha[i].cpf);
+                gotoxy(21,17);
+                printf("5");
+                gotoxy(45,17);
+                printf(" %s", L->ficha[i].email);
+                gotoxy(21,19);
+                printf("6");
+                gotoxy(45,19);
+                printf(" %s", L->ficha[i].dt_nascimento);
 
-                // Endereco
-                gotoxy(45,12);
-                fgets(L->ficha[i].endereco, sizeof(L->ficha[i].endereco), stdin);
-                L->ficha[i].endereco[strcspn(L->ficha[i].endereco, "\n")] = '\0';
+                gotoxy(24,21);
+                printf("Deseja alterar qual informacao? ");
+                gotoxy(56,21);
+                scanf("%d", &opcao);
+                getchar();
 
-                // Telefone
-                gotoxy(45,14);
-                fgets(L->ficha[i].telefone, sizeof(L->ficha[i].telefone), stdin);
-                L->ficha[i].telefone[strcspn(L->ficha[i].telefone, "\n")] = '\0';
+                switch ( opcao ) {
 
-                // CPF
-                gotoxy(45,16);
-                fgets(L->ficha[i].cpf, sizeof(L->ficha[i].cpf), stdin);
-                L->ficha[i].cpf[strcspn(L->ficha[i].cpf, "\n")] = '\0';
+                    case 1:
+                        gotoxy(24,9);
+                        printf("NOME ATUAL.........: %s", L->ficha[i].nome);
+                        gotoxy(24,10);
+                        printf("NOME NOVO..........: ");
+                        // Nome
+                        gotoxy(45,10);
+                        fgets(L->ficha[i].nome, sizeof(L->ficha[i].nome), stdin);
+                        L->ficha[i].nome[strcspn(L->ficha[i].nome, "\n")] = '\0';
 
-                // Email
-                gotoxy(45,18);
-                fgets(L->ficha[i].email, sizeof(L->ficha[i].email), stdin);
-                L->ficha[i].email[strcspn(L->ficha[i].email, "\n")] = '\0';
+                        break;
+                    
+                    case 2:
+                        gotoxy(24,11);
+                        printf("ENDERECO ATUAL.....: %s", L->ficha[i].endereco);
+                        gotoxy(24,12);
+                        printf("ENDERECO NOVO......: ");
+                        // Endereco
+                        gotoxy(45,12);
+                        fgets(L->ficha[i].endereco, sizeof(L->ficha[i].endereco), stdin);
+                        L->ficha[i].endereco[strcspn(L->ficha[i].endereco, "\n")] = '\0';
 
-                // Data Nascimento
-                gotoxy(45,20);
-                fgets(L->ficha[i].dt_nascimento, sizeof(L->ficha[i].dt_nascimento), stdin);
-                L->ficha[i].dt_nascimento[strcspn(L->ficha[i].dt_nascimento, "\n")] = '\0';
+                        break;
+                    
+                    case 3:
+                        gotoxy(24,13);
+                        printf("TELEFONE ATUAL.....: %s", L->ficha[i].telefone);
+                        gotoxy(24,14);
+                        printf("TELEFONE NOVO......: ");
+                        // Telefone
+                        gotoxy(45,14);
+                        fgets(L->ficha[i].telefone, sizeof(L->ficha[i].telefone), stdin);
+                        L->ficha[i].telefone[strcspn(L->ficha[i].telefone, "\n")] = '\0';
 
-                break;
+                        break;
+                    
+                    case 4:
+                        gotoxy(24,15);
+                        printf("CPF ATUAL..........: %s", L->ficha[i].cpf);
+                        gotoxy(24,16);
+                        printf("CPF NOVO...........: ");
+                        // CPF
+                        gotoxy(45,16);
+                        fgets(L->ficha[i].cpf, sizeof(L->ficha[i].cpf), stdin);
+                        L->ficha[i].cpf[strcspn(L->ficha[i].cpf, "\n")] = '\0';
+
+                        break;
+                    
+                    case 5:
+                        gotoxy(24,17);
+                        printf("EMAIL ATUAL........: %s", L->ficha[i].email);
+                        gotoxy(24,18);
+                        printf("EMAIL NOVO.........: ");
+                        // EMAIL
+                        gotoxy(45,18);
+                        fgets(L->ficha[i].email, sizeof(L->ficha[i].email), stdin);
+                        L->ficha[i].email[strcspn(L->ficha[i].email, "\n")] = '\0';
+
+                        break;
+                    
+                    case 6:
+                        gotoxy(24,19);
+                        printf("NASCIMENTO ATUAL...: %s", L->ficha[i].dt_nascimento);
+                        gotoxy(24,20);
+                        printf("NASCIMENTO NOVO....: ");
+                        // Data Nascimento
+                        gotoxy(45,20);
+                        fgets(L->ficha[i].dt_nascimento, sizeof(L->ficha[i].dt_nascimento), stdin);
+                        L->ficha[i].dt_nascimento[strcspn(L->ficha[i].dt_nascimento, "\n")] = '\0';
+
+                        break;
+                    
+                    default:
+                        break;
+                }
             }
         }
 
         if (!encontrado) {
-
-            gotoxy(24,12);
+            gotoxy(24,9);
             printf("Cliente nao encontrado!");
-
         }
-        
+
         gotoxy(07,23);
-        printf("Deseja sair da alteracao ( 1 = Sim, 2 = Nao ).: ");
+        printf("Deseja sair da consulta ( 1 = Sim, 2 = Nao ).: ");
         scanf("%d", &resp);
         system("cls");
+
     } while (resp == 2);
     
 }
