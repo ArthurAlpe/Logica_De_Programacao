@@ -1,0 +1,483 @@
+/*
+Autor: Arthur Almeida Pereira
+Data: 25/02/2026
+Objetivo: Sistema de cadastro de cliente
+gotoxy 80 por 24
+*/
+
+#include <stdio.h>
+#include <windows.h>
+#include <stdlib.h>
+#define MAX 10 // Capacidade da lista , determina o maximo de posicoes que tem no vetor
+
+// Estruturas
+/*
+typedef char caractere;
+typedef int inteiro;
+
+Ou seja, apelidar e definir um tipo de dado
+*/
+typedef struct { // Tipo de dado
+
+    // Um vetor para armazenar todos esses dados
+    
+    int codigo;
+    char nome[50];
+    char endereco[50];
+    char telefone[16];
+    char cpf[15];
+    char email[50];
+    char dt_nascimento[11];
+
+} reg_clientes;
+
+typedef struct {
+    
+    // Lista para controle de quantidade, inicio e fim
+    reg_clientes ficha[MAX];
+    int inicio;
+    int fim;
+
+} Lista;
+
+// Funcao para inicializar lista
+void inicializa_lista( Lista *L ) {
+
+    L->inicio = 0;
+    L->fim = 0;
+} 
+
+// Funcao de tela
+void tela(){
+    int l;
+    int c;
+
+    for ( l = 1; l < 25; l++) {
+        gotoxy(01,l);
+        printf("|");
+        gotoxy(80,l);
+        printf("|");
+    }
+    
+    for ( c = 1; c < 81; c++) {
+        gotoxy(c,01);
+        printf("-");
+        gotoxy(c,04);
+        printf("-");
+        gotoxy(c,22);
+        printf("-");
+        gotoxy(c,24);
+        printf("-");
+    }
+
+    gotoxy(01,1);
+    printf("+");
+    gotoxy(80,1);
+    printf("+");
+    gotoxy(1,22);
+    printf("+");
+    gotoxy(1,24);
+    printf("+");
+    gotoxy(80,24);
+    printf("+");
+    gotoxy(80,22);
+    printf("+");
+    gotoxy(01,4);
+    printf("+");
+    gotoxy(80,4);
+    printf("+");
+    gotoxy(2,2);
+    printf("UNICV");
+    gotoxy(62,2);
+    printf("Estrutura de Dados");
+    gotoxy(67,3);
+    printf("Prof. Rodney");
+    gotoxy(02,23);
+    printf("MSG: ");
+
+}
+
+// Funcao GOTOXY, funcao para setar onde o cursor vai ir
+void gotoxy(int x, int y) 
+{
+
+    COORD coord;
+    coord.X = (short)x;
+    coord.Y = (short)y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+void Tela_Cliente() {
+
+        gotoxy(24,5);
+        printf("CADASTRO DE CLIENTE");
+        gotoxy(24,7);
+        printf("CODIGO.............: ");
+        gotoxy(45,7);
+        gotoxy(24,9);
+        printf("NOME...............: ");
+        gotoxy(45,9);
+        gotoxy(24,11);
+        printf("ENDERECO...........: ");
+        gotoxy(45,11);
+        gotoxy(24,13);
+        printf("TELEFONE...........: ");
+        gotoxy(45,13);
+        gotoxy(24,15);
+        printf("CPF................: ");
+        gotoxy(45,15);
+        gotoxy(24,17);
+        printf("EMAIL..............: ");
+        gotoxy(45,17);
+        gotoxy(24,19);
+        printf("DATA DE NASCIMENTO.: ");
+        gotoxy(45,19);
+
+}
+
+// Funcao para pesquisa
+int pesquisa(Lista *L, int cod) {
+    int i;
+    for (i = 0; i < L->fim; i++) {
+        if(L->ficha[i].codigo == cod) {
+            return 1;
+        }
+    }
+    return -1;
+}
+
+// Funcao para cadastro de cliente
+void cadastro_cliente ( Lista *L ) {
+    int resp;
+
+    if ( L->fim >= MAX ) { // Condicao para que se a lista estiver cheia, imprimira na tela
+        gotoxy(24,5);
+        printf("Lista cheia!\n");
+        return;
+    }
+
+    do {
+        
+        reg_clientes clie;
+        int result;
+        
+        do{
+            tela();
+            
+
+            Tela_Cliente();
+
+            gotoxy(45,7);
+            scanf("%d", &clie.codigo);
+
+            result = pesquisa(L, clie.codigo);
+            if ( result != -1) {
+                gotoxy(07,23);
+                printf("Codigo ja existe.");
+                getch();
+            }
+
+        } while ( result != -1);
+        
+    
+        gotoxy(45,9);
+        fflush(stdin);
+        gets(clie.nome);
+
+        gotoxy(45,11);
+        gets(clie.endereco);
+
+        gotoxy(45,13);
+        gets(clie.telefone);
+
+        gotoxy(45,15);
+        gets(clie.cpf);
+
+        gotoxy(45,17);
+        gets(clie.email);
+
+        gotoxy(45,19);
+        gets(clie.dt_nascimento);
+        L->ficha[L->fim] = clie;
+        L->fim++;
+        gotoxy(07,23);
+        printf("Deseja sair do cadastro ( 1 = Sim, 2 = Nao ).: ");
+        scanf("%d", &resp);
+        system("cls");
+
+    } while (resp == 2);
+    
+}
+
+// Funcao para alteracao de cliente
+void alterecao_cliente ( Lista *L ) {
+    int resp;
+    int codigo;
+
+    do {
+        tela();
+        gotoxy(24,5);
+        printf("ALTERECAO DE CLIENTE");
+        gotoxy(24,7);
+        printf("DIGITE O CODIGO....: ");
+        gotoxy(45,7);
+        scanf("%d", &codigo);
+        fflush(stdin);
+
+        int encontrado = 0;
+        for (int i = 0; i < L->fim; i++) {
+            if (L->ficha[i].codigo == codigo) {
+                encontrado = 1;
+                gotoxy(24,9);
+                printf("NOME ATUAL.........: %s", L->ficha[i].nome);
+                gotoxy(24,10);
+                printf("NOME NOVO..........: ");
+                
+                gotoxy(24,11);
+                printf("ENDERECO ATUAL.....: %s", L->ficha[i].endereco);
+                gotoxy(24,12);
+                printf("ENDERECO NOVO......: ");
+                
+                gotoxy(24,13);
+                printf("TELEFONE ATUAL.....: %s", L->ficha[i].telefone);
+                gotoxy(24,14);
+                printf("TELEFONE NOVO......: ");
+                
+                gotoxy(24,15);
+                printf("CPF ATUAL..........: %s", L->ficha[i].cpf);
+                gotoxy(24,16);
+                printf("CPF NOVO...........: ");
+                
+                gotoxy(24,17);
+                printf("EMAIL ATUAL........: %s", L->ficha[i].email);
+                gotoxy(24,18);
+                printf("EMAIL NOVO.........: ");
+                
+                gotoxy(24,19);
+                printf("NASCIMENTO ATUAL...: %s", L->ficha[i].dt_nascimento);
+                gotoxy(24,20);
+                printf("NASCIMENTO NOVO....: ");
+
+                // Nome
+                gotoxy(45,10);
+                fgets(L->ficha[i].nome, sizeof(L->ficha[i].nome), stdin);
+                L->ficha[i].nome[strcspn(L->ficha[i].nome, "\n")] = '\0';
+
+                // Endereco
+                gotoxy(45,12);
+                fgets(L->ficha[i].endereco, sizeof(L->ficha[i].endereco), stdin);
+                L->ficha[i].endereco[strcspn(L->ficha[i].endereco, "\n")] = '\0';
+
+                // Telefone
+                gotoxy(45,14);
+                fgets(L->ficha[i].telefone, sizeof(L->ficha[i].telefone), stdin);
+                L->ficha[i].telefone[strcspn(L->ficha[i].telefone, "\n")] = '\0';
+
+                // CPF
+                gotoxy(45,16);
+                fgets(L->ficha[i].cpf, sizeof(L->ficha[i].cpf), stdin);
+                L->ficha[i].cpf[strcspn(L->ficha[i].cpf, "\n")] = '\0';
+
+                // Email
+                gotoxy(45,18);
+                fgets(L->ficha[i].email, sizeof(L->ficha[i].email), stdin);
+                L->ficha[i].email[strcspn(L->ficha[i].email, "\n")] = '\0';
+
+                // Data Nascimento
+                gotoxy(45,20);
+                fgets(L->ficha[i].dt_nascimento, sizeof(L->ficha[i].dt_nascimento), stdin);
+                L->ficha[i].dt_nascimento[strcspn(L->ficha[i].dt_nascimento, "\n")] = '\0';
+
+                break;
+            }
+        }
+
+        if (!encontrado) {
+
+            gotoxy(24,12);
+            printf("Cliente nao encontrado!");
+
+        }
+        
+        gotoxy(07,23);
+        printf("Deseja sair da alteracao ( 1 = Sim, 2 = Nao ).: ");
+        scanf("%d", &resp);
+        system("cls");
+    } while (resp == 2);
+    
+}
+
+// Funcao para cadastro de cliente
+void consulta_cliente ( Lista *L ) {
+    int resp;
+    int codigo;
+    do {
+        tela();
+        gotoxy(24,5);
+        printf("CONSULTA DE CLIENTE");
+        gotoxy(24,7);
+        printf("CODIGO.............: ");
+        gotoxy(45,7);
+        scanf("%d", &codigo);
+
+        int encontrado = 0;
+        for (int i = 0; i < L->fim; i++) {
+            if (L->ficha[i].codigo == codigo) {
+                encontrado = 1;
+
+                Tela_Cliente();
+                gotoxy(45,9);
+                printf(" %s", L->ficha[i].nome);
+                gotoxy(45,11);
+                printf(" %s", L->ficha[i].endereco);
+                gotoxy(45,13);
+                printf(" %s", L->ficha[i].telefone);
+                gotoxy(45,15);
+                printf(" %s", L->ficha[i].cpf);
+                gotoxy(45,17);
+                printf(" %s", L->ficha[i].email);
+                gotoxy(45,19);
+                printf(" %s", L->ficha[i].dt_nascimento);
+
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            gotoxy(24,9);
+            printf("Cliente nao encontrado!");
+        }
+        
+        gotoxy(07,23);
+        printf("Deseja sair da consulta ( 1 = Sim, 2 = Nao ).: ");
+        scanf("%d", &resp);
+        system("cls");
+    } while (resp == 2);
+    
+}
+
+void exclusao_cliente ( Lista *L ) {
+    int resp;
+    int codigo;
+
+    do {
+        tela();
+        gotoxy(24,5);
+        printf("EXCLUSAO DE CLIENTE");
+
+        gotoxy(24,7);
+        printf("CODIGO.............: ");
+        gotoxy(45,7);
+        scanf("%d", &codigo);
+
+        int encontrado = 0;
+        for(int i = 0; i < L->fim; i++) {
+            if ( L->ficha[i].codigo == codigo ) {
+                encontrado = 1;
+
+                Tela_Cliente();
+                gotoxy(56,9);
+                printf(" %s", L->ficha[i].nome);
+                gotoxy(56,11);
+                printf(" %s", L->ficha[i].endereco);
+                gotoxy(56,13);
+                printf(" %s", L->ficha[i].telefone);
+                gotoxy(56,15);
+                printf(" %s", L->ficha[i].cpf);
+                gotoxy(56,17);
+                printf(" %s", L->ficha[i].email);
+                gotoxy(56,19);
+                printf(" %s", L->ficha[i].dt_nascimento);
+
+                gotoxy(24,5);
+                printf("CONFIRMA EXCLUSAO? ( 1 = SIM, 2 = NAO): ");
+                int confirma;
+                scanf("%d", &confirma);
+
+                if (confirma == 1) {
+                    // Desloca os elementos para tras
+                    for ( int j = i; j < L->fim - 1; j++ ) {
+                        L->ficha[j] = L->ficha[j+1];
+                    }
+                    L->fim--;
+                    gotoxy(24,7);
+                    printf("Cliente excluido com sucesso!");
+
+                } else {
+                    gotoxy(24,7);
+                    printf("Exclusao cancelada");
+
+                }
+
+                break;
+            }
+
+        }
+
+        if (!encontrado) {
+            gotoxy(24,9);
+            printf("Cliente nao encontrado");
+        }
+
+        gotoxy(07,23);
+        printf("Deseja excluir outro cliente ( 1 = Sim, 2 = Nao ).: ");
+        scanf("%d", &resp);
+        system("cls");
+
+    } while (resp == 1);
+}
+
+// Programa principal
+int main()
+{
+    // Declara variaveis
+    Lista L;
+    int opcao;
+    inicializa_lista(&L);
+    
+    system("color 97");
+    system("cls");
+        
+    do {
+        
+        tela();
+        gotoxy(24,7);
+        printf("SISTEMA DE CLIENTES");
+        gotoxy(24,9);
+        printf("1 - INCLUSAO");
+        gotoxy(24,11);
+        printf("2 - ALTERACAO");
+        gotoxy(24,13);
+        printf("3 - CONSULTA");
+        gotoxy(24,15);
+        printf("4 - EXCLUSAO");
+        gotoxy(24,17);
+        printf("5 - FINALIZAR O PROGRAMA");
+        gotoxy(07,23);
+        printf("Digite sua Opcao.: ");
+        scanf("%d", &opcao);
+
+        system("cls");
+
+        switch(opcao) {
+            case 1:
+                cadastro_cliente(&L);
+                break;
+            case 2:
+                alterecao_cliente(&L);
+                break;
+            case 3:
+                consulta_cliente(&L);
+                break;
+            case 4:
+                exclusao_cliente(&L);
+                break;
+            default:
+                break;
+        }
+
+    } while(opcao != 5);
+
+
+    return 0;
+}
