@@ -199,7 +199,7 @@ void cadastro_cliente ( Lista *L ) {
         gotoxy(45,19);
         gets(clie.dt_nascimento);
 
-        gotoxy(24,5);
+        gotoxy(07,23);
         printf("Deseja cadastrar o cliente? ( 1 = Sim, 2 = Nao ).: ");
         int confirma;
         scanf("%d", &confirma);
@@ -277,7 +277,7 @@ void alterecao_cliente ( Lista *L ) {
                 gotoxy(45,19);
                 printf(" %s", L->ficha[i].dt_nascimento);
 
-                gotoxy(24,21);
+                gotoxy(07,23);
                 printf("Deseja alterar qual informacao? ");
                 gotoxy(56,21);
                 scanf("%d", &opcao);
@@ -369,12 +369,13 @@ void alterecao_cliente ( Lista *L ) {
         }
 
         gotoxy(07,23);
-        printf("Deseja sair da consulta ( 1 = Sim, 2 = Nao ).: ");
+        printf("Deseja sair da alterecao? ( 1 = Sim, 2 = Nao ).: ");
         scanf("%d", &resp);
         system("cls");
 
     } while (resp == 2);
     
+        
 }
 
 // Funcao para cadastro de cliente
