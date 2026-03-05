@@ -198,8 +198,28 @@ void cadastro_cliente ( Lista *L ) {
 
         gotoxy(45,19);
         gets(clie.dt_nascimento);
-        L->ficha[L->fim] = clie;
-        L->fim++;
+
+        gotoxy(24,5);
+        printf("Deseja cadastrar o cliente? ( 1 = Sim, 2 = Nao ).: ");
+        int confirma;
+        scanf("%d", &confirma);
+
+        if (confirma == 1) {
+            if ( L->fim < MAX ) {
+                L->ficha[L->fim] = clie;
+                L->fim++;
+                gotoxy(24,7);
+                printf("Cliente cadastrado com sucesso!");
+            } else {
+                gotoxy(24,7);
+                printf("Lista cheia, nao e possivel cadastrar!");
+            }
+        } else {
+            gotoxy(24,7);
+            printf("Cadastro cancelado!");
+
+        }
+
         gotoxy(07,23);
         printf("Deseja sair do cadastro ( 1 = Sim, 2 = Nao ).: ");
         scanf("%d", &resp);
