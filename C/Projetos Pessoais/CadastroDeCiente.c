@@ -230,7 +230,7 @@ void cadastro_cliente ( Lista *L ) {
 }
 
 // Funcao para alteracao de cliente
-void alterecao_cliente ( Lista *L ) {
+void alteracao_cliente ( Lista *L ) {
     int resp;
     int codigo;
     int opcao;
@@ -535,7 +535,7 @@ int main()
                 cadastro_cliente(&L);
                 break;
             case 2:
-                alterecao_cliente(&L);
+                alteracao_cliente(&L);
                 break;
             case 3:
                 consulta_cliente(&L);
