@@ -295,6 +295,9 @@ void alteracao_cliente ( Lista *L ) {
                         fgets(L->ficha[i].nome, sizeof(L->ficha[i].nome), stdin);
                         L->ficha[i].nome[strcspn(L->ficha[i].nome, "\n")] = '\0';
 
+                        // sizeof serve para passar automaticamente o tamanho correto do vetor
+                        // strcspn encontra onde está o \n e você usa esse índice para removê-lo.
+
                         break;
                     
                     case 2:
@@ -551,4 +554,5 @@ int main()
 
 
     return 0;
+    
 }
