@@ -292,11 +292,7 @@ void alteracao_cliente ( Lista *L ) {
                         printf("NOME NOVO..........: ");
                         // Nome
                         gotoxy(45,10);
-                        fgets(L->ficha[i].nome, sizeof(L->ficha[i].nome), stdin);
-                        L->ficha[i].nome[strcspn(L->ficha[i].nome, "\n")] = '\0';
-
-                        // sizeof serve para passar automaticamente o tamanho correto do vetor
-                        // strcspn encontra onde está o \n e você usa esse índice para removê-lo.
+                        scanf(" %[^\n]", L->ficha[i].nome);
 
                         break;
                     
@@ -307,8 +303,8 @@ void alteracao_cliente ( Lista *L ) {
                         printf("ENDERECO NOVO......: ");
                         // Endereco
                         gotoxy(45,12);
-                        fgets(L->ficha[i].endereco, sizeof(L->ficha[i].endereco), stdin);
-                        L->ficha[i].endereco[strcspn(L->ficha[i].endereco, "\n")] = '\0';
+                        scanf(" %[^\n]", L->ficha[i].endereco);
+
 
                         break;
                     
@@ -319,8 +315,8 @@ void alteracao_cliente ( Lista *L ) {
                         printf("TELEFONE NOVO......: ");
                         // Telefone
                         gotoxy(45,14);
-                        fgets(L->ficha[i].telefone, sizeof(L->ficha[i].telefone), stdin);
-                        L->ficha[i].telefone[strcspn(L->ficha[i].telefone, "\n")] = '\0';
+                        scanf(" %[^\n]", L->ficha[i].telefone);
+
 
                         break;
                     
@@ -331,8 +327,8 @@ void alteracao_cliente ( Lista *L ) {
                         printf("CPF NOVO...........: ");
                         // CPF
                         gotoxy(45,16);
-                        fgets(L->ficha[i].cpf, sizeof(L->ficha[i].cpf), stdin);
-                        L->ficha[i].cpf[strcspn(L->ficha[i].cpf, "\n")] = '\0';
+                        scanf(" %[^\n]", L->ficha[i].cpf);
+
 
                         break;
                     
@@ -343,8 +339,8 @@ void alteracao_cliente ( Lista *L ) {
                         printf("EMAIL NOVO.........: ");
                         // EMAIL
                         gotoxy(45,18);
-                        fgets(L->ficha[i].email, sizeof(L->ficha[i].email), stdin);
-                        L->ficha[i].email[strcspn(L->ficha[i].email, "\n")] = '\0';
+                        scanf(" %[^\n]", L->ficha[i].email);
+
 
                         break;
                     
@@ -355,8 +351,8 @@ void alteracao_cliente ( Lista *L ) {
                         printf("NASCIMENTO NOVO....: ");
                         // Data Nascimento
                         gotoxy(45,20);
-                        fgets(L->ficha[i].dt_nascimento, sizeof(L->ficha[i].dt_nascimento), stdin);
-                        L->ficha[i].dt_nascimento[strcspn(L->ficha[i].dt_nascimento, "\n")] = '\0';
+                        scanf(" %[^\n]", L->ficha[i].dt_nascimento);
+
 
                         break;
                     
