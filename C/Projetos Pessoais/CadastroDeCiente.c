@@ -17,6 +17,7 @@ typedef int inteiro;
 
 Ou seja, apelidar e definir um tipo de dado
 */
+
 typedef struct { // Tipo de dado
 
     // Um vetor para armazenar todos esses dados
