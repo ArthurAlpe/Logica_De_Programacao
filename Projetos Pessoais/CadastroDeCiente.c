@@ -600,6 +600,7 @@ void lista_codigo_clientes(Lista *L) {
 
     getch();
 }
+
 // Funcao que Mostra o Menu de consulta
 void menu_consulta(Lista *L) {
 
@@ -645,6 +646,20 @@ void menu_consulta(Lista *L) {
 
 }
 
+// Funcao para Gravar no Disco
+void gravar(Lista *L) {
+
+    int i;
+    FILE *ptr;
+    char *Filename = "clientes.dat";
+    char *modo_gravacao = "wb";
+    reg_clientes clie;
+
+    tela();
+    gotoxy(25,03);
+    printf("")
+}
+
 // Programa principal
 int main()
 {
@@ -653,6 +668,9 @@ int main()
     int opcao;
     inicializa_lista(&L);
     
+    // Carrega os dados guardados no arquivo
+    le_arquivo(&L);
+
     system("color 17");
     system("cls");
         
@@ -696,6 +714,7 @@ int main()
 
     } while(opcao != 5);
 
+    gravar(&L);
 
     return 0;
     
