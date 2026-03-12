@@ -8,7 +8,7 @@ gotoxy 80 por 24
 #include <stdio.h>
 #include <windows.h>
 #include <stdlib.h>
-#define MAX 10 // Capacidade da lista , determina o maximo de posicoes que tem no vetor
+#define MAX 5 // Capacidade da lista , determina o maximo de posicoes que tem no vetor
 
 // Estruturas
 /*
@@ -52,6 +52,8 @@ void tela(){
     int l;
     int c;
 
+    system("cls");
+
     for ( l = 1; l < 25; l++) {
         gotoxy(01,l);
         printf("|");
@@ -87,7 +89,9 @@ void tela(){
     gotoxy(80,4);
     printf("+");
     gotoxy(2,2);
-    printf("UNICV");
+    printf("UNICV - 2 Semestre");
+    gotoxy(2,3);
+    printf("Arthur");
     gotoxy(62,2);
     printf("Estrutura de Dados");
     gotoxy(67,3);
@@ -203,6 +207,7 @@ void cadastro_cliente ( Lista *L ) {
         printf("Deseja cadastrar o cliente? ( 1 = Sim, 2 = Nao ).: ");
         int confirma;
         scanf("%d", &confirma);
+        limpar();
 
         if (confirma == 1) {
             if ( L->fim < MAX ) {
@@ -497,6 +502,147 @@ void exclusao_cliente ( Lista *L ) {
     } while (resp == 1);
 }
 
+// Funcao para limpar mensagem
+void limpar() {
+
+    gotoxy(07,23);
+    printf("                                                      ");
+
+}
+
+// Funcao que Ordena Clientes em Ordem de codigo
+void ordena_codigo(Lista *L) {
+    
+    int i;
+    int j;
+    reg_clientes    aux; // Auxiliar
+
+    for ( i = 0; i < L->fim-1; i++ ) {           // Looping para percorrer o vetor todo e
+        for ( j = i+1; j <= L->fim; j++ ) {      // ordenar por troca
+
+            if ( L->ficha[i].codigo > L->ficha[j].codigo ) {
+
+                aux = L->ficha[i];
+                L->ficha[i] = L->ficha[j];
+                L->ficha[j] = aux;
+
+            }
+        }
+    }
+}
+
+// Funcao que Lista Clientes em Ordem Alfabetica
+void lista_alfabetica_clientes(Lista *L) {
+
+}
+
+// Funcao que Lista Clientes em Ordem de Codigo
+void lista_codigo_clientes(Lista *L) {
+
+    int i;
+    int lin = 7;
+
+    // Chama a funcao de Ordenacao
+    ordena_codigo(L);
+
+    tela();
+    gotoxy(10,03);
+    printf("-- Lista Clientes Ordem de Codigo --");
+    gotoxy(02,5);
+    printf("Cod:");
+    gotoxy(8,5);
+    printf("Nome do Cliente:");
+    gotoxy(36,5);
+    printf("CPF:");
+    gotoxy(50,5);
+    printf("Telefone:");
+    gotoxy(67,5); 
+    printf("Dt_Nasc:");
+    gotoxy(02,6);
+    printf("---  --------------------------- -----------    ------------     ------------");    
+
+    for ( i = 0; i < L->fim; i++ ) {
+
+        gotoxy(03,lin);
+        printf("%d", L->ficha[i].codigo);
+        gotoxy(8,lin);
+        printf("%s", L->ficha[i].nome);
+        gotoxy(33,lin);
+        printf("%s", L->ficha[i].cpf);
+        gotoxy(50,lin);
+        printf("%s", L->ficha[i].telefone);
+        gotoxy(67,lin);
+        printf("%s", L->ficha[i].dt_nascimento);
+        
+        lin++;
+        if (lin > 22) {
+
+            
+            tela();
+            gotoxy(10,03);
+            printf("-- Lista Clientes Ordem de Codigo --");
+            gotoxy(02,04);
+            printf("Cod:");
+            gotoxy(06,4);
+            printf("Nome do Cliente:");
+            gotoxy(36,4);
+            printf("CPF:");
+            gotoxy(50,4);
+            printf("Telefone:");
+            gotoxy(67,4);
+            printf("Dt_Nasc:");
+
+            getch();
+        }
+    }
+
+    getch();
+}
+// Funcao que Mostra o Menu de consulta
+void menu_consulta(Lista *L) {
+
+    int opc;
+
+    do {
+        tela();
+        gotoxy(20,03);
+        printf("--- MENU DE CONSULTAS ---");
+
+        gotoxy(21,9);
+        printf("1 - Cliente por Codigo Especifico");
+        gotoxy(21,12);
+        printf("2 - Lista de Clientes em Ordem Alfabetica");
+        gotoxy(21,15);
+        printf("3 - Lista de Clientes em Ordem de Codigo");
+        gotoxy(21,18);
+        printf("4 - Retorna ao Menu Anterior");
+
+        gotoxy(07,23);
+        printf("Digite sua Opcao.: ");
+        scanf("%d", &opc);
+
+        switch ( opc ) 
+        {
+            case 1:
+                consulta_cliente(L);
+                break;
+            case 2:
+                lista_alfabetica_clientes(L);
+                break;
+            case 3:
+                lista_codigo_clientes(L);
+                break;
+            case 4:
+                tela();
+                break;
+            default:
+                break;
+        }
+
+    } while ( opc == 4 );
+
+}
+
 // Programa principal
 int main()
 {
@@ -505,7 +651,7 @@ int main()
     int opcao;
     inicializa_lista(&L);
     
-    system("color 97");
+    system("color 17");
     system("cls");
         
     do {
@@ -537,7 +683,7 @@ int main()
                 alteracao_cliente(&L);
                 break;
             case 3:
-                consulta_cliente(&L);
+                menu_consulta(&L);
                 break;
             case 4:
                 exclusao_cliente(&L);
