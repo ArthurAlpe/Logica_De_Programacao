@@ -11,6 +11,7 @@ gotoxy 80 por 24
 #define MAX 5 // Capacidade da lista , determina o maximo de posicoes que tem no vetor
 
 // Estruturas
+
 /*
 typedef char caractere;
 typedef int inteiro;
