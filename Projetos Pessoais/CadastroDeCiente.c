@@ -655,7 +655,7 @@ void menu_consulta(Lista *L) {
         char *modo_gravacao = "wb";
         reg_clientes clie;
 
-        ptr = fopen ( Filename, modo_gravacao );
+        ptr = fopen ( Filename, modo_gravacao );  // Abre para escrita binaria
         
         if ( ptr == NULL ) {
             tela();
@@ -664,6 +664,7 @@ void menu_consulta(Lista *L) {
             return;
         }
 
+        // Um comando de repeticao para gravar todos os clientes da lista
         for ( i = 0; i < L->fim; i++ ) {
             
             fwrite(&L->ficha[i], sizeof(reg_clientes), 1, ptr);
@@ -686,9 +687,10 @@ void le_arquivo(Lista *L) {
     char *modo_leitura = "rb";
     
 
-    ptr = fopen( Filename, modo_leitura );
+    ptr = fopen( Filename, modo_leitura ); // Desta maneira, ele faz a leitura binaria
     if ( ptr == NULL ) {
 
+        // Um comando simples para se caso não existir arquivo, apenas inicializa a lista
         L->inicio = 0;
         L->fim = 0;
 
@@ -704,9 +706,17 @@ void le_arquivo(Lista *L) {
     L->inicio = 0;
     L->fim = 0;
 
+    /*
+        fread = Lê todos os clientes
+        fopen = Abre o arquivo com todos os clientes
+        fwrite = Grava todos os clientes no arquivo
+        fclose = Fecha o arquivo com todos os clientes salvos
+    */
+
     while ( fread( &clie, sizeof(reg_clientes), 1, ptr ) == 1 ) {
 
-        if ( L->fim < MAX ) {
+        if ( L->fim < MAX ) { // Comando para que seja de acordo com o MAX introduzido no começo do codigo
+                                 // garantindo que nao ultrapasse o limite, acordado no MAX                       
 
             L->ficha[L->fim] = clie;
             L->fim++;
