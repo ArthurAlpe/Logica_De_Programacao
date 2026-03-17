@@ -616,7 +616,7 @@ int main(){
     // Carrega os dados armazenados no arquivo
     le_arquivo(&T);
 
-    system("color 72");
+    system("color 02");
     system("cls");
 
     do {
