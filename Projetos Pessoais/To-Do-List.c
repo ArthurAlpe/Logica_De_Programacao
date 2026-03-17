@@ -621,8 +621,12 @@ int main(){
 
     do {
         layout();
-        gotoxy(20,03);
+
+        gotoxy(25,03);
         printf("--- MENU DO PROGRAMA ---");
+
+        gotoxy(30,06);
+        printf("LISTA DE TAREFAS");
 
         gotoxy(21,9);
         printf("1 - Criar uma Tarefa");
