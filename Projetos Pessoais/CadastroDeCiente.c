@@ -646,38 +646,38 @@ void menu_consulta(Lista *L) {
 
 }
 
-    // Funcao para Gravar no Disco
-    void gravar(Lista *L) {
+// Funcao para Gravar no Disco
+void gravar(Lista *L) {
 
-        int i;
-        FILE *ptr;
-        char *Filename = "clientes.dat";
-        char *modo_gravacao = "wb";
-        reg_clientes clie;
+    int i;
+    FILE *ptr;
+    char *Filename = "clientes.dat";
+    char *modo_gravacao = "wb";
+    reg_clientes clie;
 
-        ptr = fopen ( Filename, modo_gravacao );  // Abre para escrita binaria
+    ptr = fopen ( Filename, modo_gravacao );  // Abre para escrita binaria
         
-        if ( ptr == NULL ) {
-            tela();
-            gotoxy(25,03);
-            printf("Erro ao abrir arquivo para gravacao!");
-            return;
-        }
-
-        // Um comando de repeticao para gravar todos os clientes da lista
-        for ( i = 0; i < L->fim; i++ ) {
-            
-            fwrite(&L->ficha[i], sizeof(reg_clientes), 1, ptr);
-
-        }
-
-        fclose( ptr ) ;
-
+    if ( ptr == NULL ) {
         tela();
         gotoxy(25,03);
-        printf("Dados gravados com sucesso!");
-        getch();
+        printf("Erro ao abrir arquivo para gravacao!");
+        return;
     }
+
+    // Um comando de repeticao para gravar todos os clientes da lista
+    for ( i = 0; i < L->fim; i++ ) {
+            
+        fwrite(&L->ficha[i], sizeof(reg_clientes), 1, ptr);
+
+    }
+
+    fclose( ptr ) ;
+
+    tela();
+    gotoxy(25,03);
+    printf("Dados gravados com sucesso!");
+    getch();
+}
 
 // Funcao para Ler os Arquivos do Disco
 void le_arquivo(Lista *L) {
