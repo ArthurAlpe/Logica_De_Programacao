@@ -535,7 +535,71 @@ void ordena_codigo(Lista *L) {
 
 // Funcao que Lista Clientes em Ordem Alfabetica
 void lista_alfabetica_clientes(Lista *L) {
+    int i, j;
+    int lin = 7;
+    reg_clientes aux;
 
+    // Ordena os clientes pelo nome (Bubble Sort simples)
+    for (i = 0; i < L->fim - 1; i++) {
+        for (j = i + 1; j < L->fim; j++) {
+            if (strcmp(L->ficha[i].nome, L->ficha[j].nome) > 0) {
+                aux = L->ficha[i];
+                L->ficha[i] = L->ficha[j];
+                L->ficha[j] = aux;
+            }
+        }
+    }
+
+    // Exibe a lista ordenada
+    tela();
+    gotoxy(10, 3);
+    printf("-- Lista Clientes Ordem Alfabetica --");
+    gotoxy(2, 5);
+    printf("Cod:");
+    gotoxy(8, 5);
+    printf("Nome do Cliente:");
+    gotoxy(36, 5);
+    printf("CPF:");
+    gotoxy(50, 5);
+    printf("Telefone:");
+    gotoxy(67, 5);
+    printf("Dt_Nasc:");
+    gotoxy(2, 6);
+    printf("---  --------------------------- -----------    ------------     ------------");
+
+    for (i = 0; i < L->fim; i++) {
+        gotoxy(3, lin);
+        printf("%d", L->ficha[i].codigo);
+        gotoxy(8, lin);
+        printf("%s", L->ficha[i].nome);
+        gotoxy(33, lin);
+        printf("%s", L->ficha[i].cpf);
+        gotoxy(50, lin);
+        printf("%s", L->ficha[i].telefone);
+        gotoxy(67, lin);
+        printf("%s", L->ficha[i].dt_nascimento);
+
+        lin++;
+        if (lin > 22) {
+            tela();
+            gotoxy(10, 3);
+            printf("-- Lista Clientes Ordem Alfabetica --");
+            gotoxy(2, 4);
+            printf("Cod:");
+            gotoxy(8, 4);
+            printf("Nome do Cliente:");
+            gotoxy(36, 4);
+            printf("CPF:");
+            gotoxy(50, 4);
+            printf("Telefone:");
+            gotoxy(67, 4);
+            printf("Dt_Nasc:");
+            getch();
+            lin = 7;
+        }
+    }
+
+    getch();
 }
 
 // Funcao que Lista Clientes em Ordem de Codigo
