@@ -8,7 +8,7 @@ gotoxy 80 por 24
 #include <stdio.h>
 #include <windows.h>
 #include <stdlib.h>
-#define MAX 5 // Capacidade da lista , determina o maximo de posicoes que tem no vetor
+#define MAX 20 // Capacidade da lista , determina o maximo de posicoes que tem no vetor
 
 // Estruturas
 
