@@ -85,7 +85,9 @@ void Tela_password() {
         gotoxy(24,13);
         printf("EMAIL..............: ");
         gotoxy(24,15);
-        printf("SENHA..............:");
+        printf("TAMAHNHO DA SENHA..: ");
+        gotoxy(24,17);
+        printf("SENHA..............: ");
 
 }
 
@@ -210,14 +212,13 @@ void cadastro_password ( ListaSenha *LS ) {
         gets(password.email);
 
         // Pergunta o tamanho da senha
-        gotoxy(45,14);
-        printf("Digite o tamanho da senha: ");
+        gotoxy(45,15);
         scanf("%d", &password.tamanho_senha);
 
         // Gera a senha com o tamanho escolhido
-        gotoxy(45,15);
+        gotoxy(45,17);
         gerar_senha(&password);
-        gotoxy(45,15);
+        gotoxy(45,17);
         printf("%s", password.senha);
 
         gotoxy(07,23);
