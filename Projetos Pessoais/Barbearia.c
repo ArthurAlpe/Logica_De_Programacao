@@ -265,6 +265,8 @@ void agendar_cliente ( Clientes *C )
 void alterar_cliente ( Clientes *C )
 {
 
+    system("cls");
+    
     int resp;
     int codigo;
     int opcao;
