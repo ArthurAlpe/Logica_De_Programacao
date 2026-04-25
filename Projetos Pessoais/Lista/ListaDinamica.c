@@ -162,6 +162,75 @@ TipoApontador pesquisa(TipoLista *L, int cod)
     return NULL;
 }
 
+// Função auxiliar para contar elementos da lista
+int contar_elementos(TipoLista *L) 
+{
+    
+    int n = 0;
+    TipoApontador aux = L->Primeiro;
+
+    while (aux != NULL) 
+    {
+        n++;
+        aux = aux->proximo;
+    }
+
+    return n;
+}
+
+// Funcao para o Menu de Cadastros
+void menu_cadastros ( TipoLista *L )
+{
+
+    int opcao;
+
+    do
+    {
+        tela();
+
+        gotoxy(20,03);
+        printf("--- MENU DE CADASTROS ---");
+
+        gotoxy(24,7);
+        printf("1 - Cadastrar funcionario no Final da Lista");
+
+        gotoxy(24,9);
+
+        printf("2 - Cadastrar funcionario no Inicio da Lista");
+
+        gotoxy(24,11);
+        printf("3 - Cadastrar funcionario em uma Posicao da Lista");
+
+        gotoxy(24,13);
+        printf("4 - Sair do Menu de Cadastros");
+
+        gotoxy(07,23);
+        printf("Digite sua Opcao.: ");
+        scanf("%d", &opcao);
+
+        system("cls");
+
+        switch ( opcao )
+        {
+
+            case 1:
+                cadastrar_Funcionario_Final(L);
+                break;
+            case 2:
+                cadastrar_Funcionario_Inicio(L);
+                break;
+            case 3:
+                cadastrar_Funcionario_Posicao(L);
+                break;
+            default:
+                break;
+
+        }
+
+    } while ( opcao != 4 );
+
+}
+
 // Funcao para Cadastro de Funcionario no Final da Lista
 void cadastrar_Funcionario_Final( TipoLista *L )
 {
@@ -372,91 +441,101 @@ void cadastrar_Funcionario_Inicio( TipoLista *L )
     } while ( resp == 2 );
 }
 
-// Funcao para Cadastro de Funcionario em uma Posicao da Lista
-void cadastrar_Funcionario_Posicao( TipoLista *L )
+// Função para Cadastro de Funcionario em uma Posicao da Lista
+void cadastrar_Funcionario_Posicao(TipoLista *L) 
 {
-
     int resp;
     int pos_lista;
 
     do 
     {
-
         reg_funcionario func;
         int resultado;
 
-        do
+        tela();
+        tela_Funcionario();
+
+        // Conta quantos elementos já existem
+        int total = contar_elementos(L);
+        gotoxy(24,5);
+        printf("POSICAO............: ");
+        gotoxy(45,5);
+        scanf("%d", &pos_lista);
+
+        // Validação da posição
+        if (pos_lista < 1 || pos_lista > total + 1) 
         {
+            gotoxy(07,23);
+            printf("Posicao invalida! Atualmente existem %d funcionarios.", total);
 
-            tela();
-            tela_Funcionario();
-            gotoxy(24,5);
-            printf("POSICAO............: ");
-            gotoxy(45,5);
-            scanf("%d", &pos_lista);
-            gotoxy(45,6);
-            scanf("%d", &func.codigo);
+            getch();
 
-            resultado = pesquisa (L, func.codigo);
+            continue; // volta para pedir novamente
+        }
 
-            if ( resultado != NULL ) 
-            {
+        gotoxy(45,6);
+        scanf("%d", &func.codigo);
 
-                gotoxy(07,23);
-                printf("Este Codigo ja Existe!");
-                getch();
+        resultado = pesquisa(L, func.codigo);
 
-            }
+        if (resultado != NULL) 
+        {
+            gotoxy(07,23);
+            printf("Este Codigo ja Existe!");
 
-        } while ( resultado != NULL );
+            getch();
 
-        gotoxy(45,7);
-        fflush(stdin);
+            continue;
+        }
+
+        // Coleta os demais dados normalmente
+        gotoxy(45,7); 
+        fflush(stdin); 
         gets(func.nome);
 
-        gotoxy(45,8);
+        gotoxy(45,8); 
         scanf("%f", &func.salario);
 
-        gotoxy(45,9);
-        fflush(stdin);
+        gotoxy(45,9); 
+        fflush(stdin); 
         gets(func.endereco);
 
-        gotoxy(45,10);
+        gotoxy(45,10); 
         gets(func.dt_nasc);
 
-        gotoxy(45,11);
+        gotoxy(45,11); 
         gets(func.telefone);
 
-        gotoxy(45,12);
+        gotoxy(45,12); 
         gets(func.cpf);
 
-        gotoxy(45,13);
+        gotoxy(45,13); 
         gets(func.cargo);
 
-        gotoxy(45,14);
+        gotoxy(45,14); 
         gets(func.departamento);
 
         gotoxy(07,23);
-        printf("Deseja cadastrar o Funcionario na Posicao %d da Lista? ( 1 = Sim, 2 = Nao ) ", pos_lista);
+        printf("Deseja cadastrar o Funcionario na Posicao %d da Lista? (1 = Sim, 2 = Nao) ", pos_lista);
 
         int confirma;
-
         scanf("%d", &confirma);
         limpar_msg();
 
-        if ( confirma == 1 )
+        if (confirma == 1) 
         {
-            TipoApontador p = ( TipoApontador ) malloc (sizeof(TipoItem));
+
+            TipoApontador p = (TipoApontador) malloc(sizeof(TipoItem));
             p->conteudo = func;
             p->proximo = NULL;
 
-            if ( pos_lista == 1 )
+            if (pos_lista == 1) 
             {
-                
+
                 p->proximo = L->Primeiro;
                 L->Primeiro = p;
 
-                if ( L->Ultimo == NULL )
+                if (L->Ultimo == NULL) 
                 {
                     L->Ultimo = p;
                 }
@@ -465,37 +544,23 @@ void cadastrar_Funcionario_Posicao( TipoLista *L )
 
                 TipoApontador atual = L->Primeiro;
 
-                int i;
-
-                while ( atual != NULL && i < pos_lista - 1 )
+                for (int i = 1; i < pos_lista - 1; i++) 
                 {
-
                     atual = atual->proximo;
-                    i++;
-
                 }
 
-                if ( atual == NULL ) 
+                p->proximo = atual->proximo;
+                atual->proximo = p;
+
+                if (p->proximo == NULL) 
                 {
-
-                    gotoxy(24,7);
-                    printf("Posicao Invalida!");
-                    free(p);
-
-                } else {
-
-                    p->proximo = atual->proximo;
-                    atual->proximo = p;
-
-                    if ( p->proximo == NULL )
-                    {
-                        L->Ultimo = p;
-                    }
+                    L->Ultimo = p;
                 }
             }
 
             system("cls");
             tela();
+
             gotoxy(24,7);
             printf("Funcionario Cadastrado na Posicao %d da Lista com Sucesso!", pos_lista);
 
@@ -503,16 +568,70 @@ void cadastrar_Funcionario_Posicao( TipoLista *L )
 
             system("cls");
             tela();
+
             gotoxy(24,7);
             printf("Cadastro Cancelado!");
+        }
+
+        gotoxy(07,23);
+        printf("Deseja sair do cadastro? (1 = Sim, 2 = Nao) ");
+        scanf("%d", &resp);
+
+    } while (resp == 2);
+}
+
+// Funcao para o Menu de Cadastros
+void menu_remover ( TipoLista *L )
+{
+
+    int opcao;
+
+    do
+    {
+        tela();
+
+        gotoxy(20,03);
+        printf("--- MENU DE REMOVER ---");
+
+        gotoxy(24,07);
+        printf("1 - Remover funcionario no Final da Lista");
+        gotoxy(24,9);
+        printf("2 - Remover funcionario em uma Posicao da Lista");
+        gotoxy(24,11);
+        printf("3 - Remover funcionario no Inicio da Lista");
+        gotoxy(24,13);
+        printf("4 - Remover funcionario por Codigo");
+        gotoxy(24,15);
+        printf("5 - Sair do Menu de Remover");
+
+        gotoxy(07,23);
+        printf("Digite sua Opcao.: ");
+        scanf("%d", &opcao);
+
+        system("cls");
+
+        switch ( opcao )
+        {
+
+            case 1:
+                remover_Funcionario_Final(L);
+                break;
+            case 2:
+                remover_Funcionario_Posicao(L);
+                break;
+            case 3:
+                remover_Funcionario_Inicio(L);
+                break;
+            case 4:
+                remover_Funcionario_Codigo(L);
+                break;
+            default:
+                break;
 
         }
-        
-        gotoxy(07,23);
-        printf("Deseja sair do cadastro? ( 1 = Sim, 2 = Nao ) ");
-        scanf("%d", &resp);
-        
-    } while ( resp == 2 );
+
+    } while ( opcao != 5 );
+
 }
 
 // Funcao para Remover Funcionario no Final da Lista
@@ -533,6 +652,13 @@ void remover_Funcionario_Posicao ( TipoLista *L )
 void remover_Funcionario_Inicio ( TipoLista *L )
 {
         
+
+
+}
+
+// Funcao para Remover Funcionario pelo Codigo
+void remover_Funcionario_Codigo ( TipoLista *L )
+{
 
 
 }
@@ -673,7 +799,7 @@ void consultar_lista ( TipoLista *L )
             printf("CPF:");
 
             gotoxy(50,5); 
-            rintf("Telefone:");
+            printf("Telefone:");
 
             gotoxy(67,5); 
             printf("Dt_Nasc:");
@@ -1287,7 +1413,7 @@ void le_arquivo_lista ( TipoLista *L )
     fclose ( ptr );
 
     tela();
-    
+
     gotoxy(25,03);
     printf("Dados Carregados do Arquivo com Sucesso!");
 
@@ -1315,25 +1441,19 @@ int main()
     // Hub do programa
     do
     {
+        
         tela();
+
         gotoxy(24,7);
-        printf("1 - Cadastrar funcionario no Final da Lista");
-        gotoxy(24,8);
-        printf("2 - Cadastrar funcionario no Inicio da Lista");
+        printf("1 - Cadastrar Funcionario");
         gotoxy(24,9);
-        printf("3 - Cadastrar funcionario em uma Posicao da Lista");
-        gotoxy(24,10);
-        printf("4 - Remover funcionario no Final da Lista");
+        printf("2 - Remover Funcionario");
         gotoxy(24,11);
-        printf("5 - Remover funcionario em uma Posicao da Lista");
-        gotoxy(24,12);
-        printf("6 - Remover funcionario no Inicio da Lista");
+        printf("3 - Consultar Todos os Funcionarios");
         gotoxy(24,13);
-        printf("7 - Consultar Todos os Funcionarios");
-        gotoxy(24,14);
-        printf("8 - Alterar Dados de Funcionarios");
+        printf("4 - Alterar Dados de Funcionarios");
         gotoxy(24,15);
-        printf("9 - Finalizar Programa");
+        printf("5 - Finalizar Programa");
 
         gotoxy(07,23);
         scanf("%d", &opcao);
@@ -1342,38 +1462,23 @@ int main()
 
         switch(opcao)
         {
-
             case 1:
-                cadastrar_Funcionario_Final(&L);
+                menu_cadastros(&L);
                 break;
             case 2:
-                cadastrar_Funcionario_Inicio(&L);
+                menu_remover(&L);
                 break;
             case 3:
-                cadastrar_Funcionario_Posicao(&L);
-                break;
-            /*
-            case 4:
-                remover_Funcionario_Final(&L);
-                break;
-            case 5:
-                remover_Funcionario_Posicao(&L);
-                break;
-            case 6:
-                remover_Funcionario_Inicio(&L);
-                break;
-            */
-            case 7:
                 menu_consultar_Funcionarios(&L);
                 break;
-            case 8:
+            case 4:
                 alterar_Funcionario(&L);
                 break;
             default:
                 break;
         }
         
-    } while ( opcao != 9 );
+    } while ( opcao != 5 );
 
     gravar_lista(&L);
 
