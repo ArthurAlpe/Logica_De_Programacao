@@ -1,7 +1,8 @@
 /*
 Autor: Arthur Almeida Pereira
 Data: 16/04/2026
-Objetivo: Cadastrar e consultar funcionarios em Lista Simples
+Objetivo: Cadastrar e consultar funcionarios 
+Lista Simplesmente Encadeada
 */
 
 #include <stdio.h>
