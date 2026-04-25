@@ -2,7 +2,23 @@
 Autor: Arthur Almeida Pereira
 Data: 16/04/2026
 Objetivo: Cadastrar e consultar funcionarios 
-Lista Simplesmente Encadeada
+
+Explicacao do codigo/programa:
+
+    Um programa de lista dinamica simplesmente encadeada com as seguintes funcoes:
+
+    1 - Cadastro ( No Inicio e no Final da lista ou de acordo com a Posicao que o usuario deseja )
+    2 - Remover ( No Inicio e no Final da lista e pelo Codigo cadastrado )
+    3 - Consultas ( Codigo Especifico, Ordem de codigos, Ordem alfabetica e Lista )
+    4 - Alteracao ( Escolhendo o Codigo do funcionario, podendo alterar qualquer informacao do cadastro )
+    5 - Cor ( Uma simples forma do usuario poder ter a personalizao diferente com algumas pre definicoes )
+    6 - Todos os cadastros feitos vao ser armazenados no disco podendo manter o controle de qualquer
+    cadastro novo e antigo, facilitando a manipulacao e a alteracao de qualquer informacao desejada
+    7 - Controle de cadastros feitos para evitar falta de informacao durante a execucao, ex.: O usuario deseja
+    criar um cadastro de um funcionario na posicao 30 mas apenas possui 15 cadastros feitos, o programa ja mostra
+    no menu do programa mas tambem passa por uma validacao mostrar que nao e possivel criar um cadastro na posicao
+    30 pois possui apenas 15 cadastros feitos naquele momento. Evitando qualquer tipo de problema com o usuario
+
 */
 
 #include <stdio.h>
@@ -1823,7 +1839,7 @@ int main()
         gotoxy(25,6);
         printf("=--- FUNCIONARIOS ---=");
 
-        gotoxy(24,17);
+        gotoxy(24,5);
         printf("Total de funcionarios cadastrados: %d", tamanho_lista(&L));
 
         gotoxy(24,9);
