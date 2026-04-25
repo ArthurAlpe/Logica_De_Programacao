@@ -96,7 +96,9 @@ void tela(){
     gotoxy(80,4);
     printf("+");
     gotoxy(2,2);
-    printf("UNICV - 2 Semestre");
+    printf("UNICV - 2 Semestre ADS/ESW");
+    gotoxy(2,3);
+    printf("Arthur Almeida Pereira");
     gotoxy(62,2);
     printf("Estrutura de Dados");
     gotoxy(67,3);
@@ -1632,8 +1634,10 @@ void gravar_lista( TipoLista *L )
     {
 
         tela();
-        gotoxy(25,03);
+        gotoxy(22,11);
         printf("Erro ao Abrir Arquivo para Gravacao!");
+        gotoxy(07,23);
+        
         return;
 
     }
@@ -1651,8 +1655,11 @@ void gravar_lista( TipoLista *L )
     fclose ( ptr );
 
     tela();
-    gotoxy(25,03);
+    gotoxy(22,11);
     printf("Dados Gravados com Sucesso!");
+
+    gotoxy(07,23);
+
     getch();
 
 }
@@ -1674,8 +1681,10 @@ void le_arquivo_lista ( TipoLista *L )
 
         tela();
 
-        gotoxy(25,03);
+        gotoxy(22,11);
         printf("Nenhum Arquivo Encontrado. Lista Iniciada Vazia!");
+
+        gotoxy(07,23);
 
         getch();
 
@@ -1711,8 +1720,12 @@ void le_arquivo_lista ( TipoLista *L )
 
     tela();
 
-    gotoxy(25,03);
+    system("color 17");
+
+    gotoxy(22,11);
     printf("Dados Carregados do Arquivo com Sucesso!");
+
+    gotoxy(07,23);
 
     getch();
 
@@ -1741,15 +1754,18 @@ int main()
         
         tela();
 
-        gotoxy(24,7);
-        printf("1 - Cadastrar Funcionario");
+        gotoxy(25,6);
+        printf("=--- FUNCIONARIOS ---=");
+
         gotoxy(24,9);
-        printf("2 - Remover Funcionario");
+        printf("1 - Cadastrar Funcionario");
         gotoxy(24,11);
-        printf("3 - Consultar Todos os Funcionarios");
+        printf("2 - Remover Funcionario");
         gotoxy(24,13);
-        printf("4 - Alterar Dados de Funcionarios");
+        printf("3 - Consultar Todos os Funcionarios");
         gotoxy(24,15);
+        printf("4 - Alterar Dados de Funcionarios");
+        gotoxy(24,17);
         printf("5 - Finalizar Programa");
 
         gotoxy(07,23);
