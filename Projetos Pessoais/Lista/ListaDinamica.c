@@ -9,6 +9,7 @@ Objetivo: Cadastrar e consultar funcionarios em Lista Simples
 #include <windows.h>
 #include <conio.h>
 #include <locale.h>
+#include <string.h>
 
 // Definicao Estruturas de dados
 typedef struct
@@ -1731,6 +1732,21 @@ void le_arquivo_lista ( TipoLista *L )
 
 }
 
+// Função para contar número de funcionários na lista
+int tamanho_lista(TipoLista *TL) 
+{
+    int count = 0;
+    TipoApontador aux = TL->Primeiro;
+
+    while (aux != NULL) 
+    {
+        count++;
+        aux = aux->proximo;
+    }
+
+    return count;
+}
+
 // Função para configurar cor
 void configuracao_cor() 
 {
@@ -1805,6 +1821,9 @@ int main()
 
         gotoxy(25,6);
         printf("=--- FUNCIONARIOS ---=");
+
+        gotoxy(24,17);
+        printf("Total de funcionarios cadastrados: %d", tamanho_lista(&L));
 
         gotoxy(24,9);
         printf("1 - Cadastrar Funcionario");
