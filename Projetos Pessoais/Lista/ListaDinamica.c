@@ -1637,7 +1637,7 @@ void gravar_lista( TipoLista *L )
         gotoxy(22,11);
         printf("Erro ao Abrir Arquivo para Gravacao!");
         gotoxy(07,23);
-        
+
         return;
 
     }
@@ -1731,6 +1731,55 @@ void le_arquivo_lista ( TipoLista *L )
 
 }
 
+// Função para configurar cor
+void configuracao_cor() 
+{
+    int escolha;
+
+    do 
+    {
+        tela();
+
+        gotoxy(24,7);
+        printf("--- CONFIGURACAO DE COR ---");
+
+        gotoxy(20,9);
+        printf("1 - Fundo Azul, Texto Branco");
+        gotoxy(20,11);
+        printf("2 - Fundo Preto, Texto Verde");
+        gotoxy(20,13);
+        printf("3 - Fundo Vermelho, Texto Amarelo");
+        gotoxy(20,15);
+        printf("4 - Fundo Branco, Texto Preto");
+        gotoxy(20,17);
+        printf("5 - Voltar");
+
+        gotoxy(07,23);
+        printf("Digite sua Opcao.: ");
+        scanf("%d", &escolha);
+
+        switch ( escolha ) 
+        {
+            case 1: 
+                system("color 17"); // Azul + Branco
+                break; 
+            case 2: 
+                system("color 02"); // Preto + Verde
+                break; 
+            case 3: 
+                system("color 4E"); // Vermelho + Amarelo
+                break; 
+            case 4: 
+                system("color F0"); // Branco + Preto
+                break; 
+            default: 
+                break;
+        }
+
+    } while ( escolha != 5 );
+
+}
+
 // Programa Principal
 int main()
 {
@@ -1766,7 +1815,9 @@ int main()
         gotoxy(24,15);
         printf("4 - Alterar Dados de Funcionarios");
         gotoxy(24,17);
-        printf("5 - Finalizar Programa");
+        printf("5 - Configuracao de Cor");
+        gotoxy(24,19);
+        printf("6 - Finalizar Programa");
 
         gotoxy(07,23);
         scanf("%d", &opcao);
@@ -1787,11 +1838,14 @@ int main()
             case 4:
                 alterar_Funcionario(&L);
                 break;
+            case 5: 
+                configuracao_cor(); 
+                break;
             default:
                 break;
         }
         
-    } while ( opcao != 5 );
+    } while ( opcao != 6 );
 
     gravar_lista(&L);
 
