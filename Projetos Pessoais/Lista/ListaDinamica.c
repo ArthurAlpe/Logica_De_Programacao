@@ -18,8 +18,8 @@ typedef struct
     char nome[50];
     float salario;
     char endereco[60];
-    char dt_nasc[10];
-    char telefone[15];
+    char dt_nasc[15];
+    char telefone[20];
     char cpf[15];
     char cargo[40];
     char departamento[30];
@@ -143,11 +143,11 @@ void tela_Funcionario()
 }
 
 // Funcao para Pesquisa Funcionario na Lista
-TipoApontador pesquisa(TipoLista *TL, int cod)
+TipoApontador pesquisa(TipoLista *L, int cod)
 {
     TipoApontador aux;
 
-    aux = TL->Primeiro;
+    aux = L->Primeiro;
 
     while (aux != NULL)
     {
@@ -163,7 +163,7 @@ TipoApontador pesquisa(TipoLista *TL, int cod)
 }
 
 // Funcao para Cadastro de Funcionario no Final da Lista
-void cadastrar_Funcionario_Final( TipoLista *TL )
+void cadastrar_Funcionario_Final( TipoLista *L )
 {
 
     int resp;
@@ -183,7 +183,7 @@ void cadastrar_Funcionario_Final( TipoLista *TL )
             gotoxy(45,6);
             scanf("%d", &func.codigo);
 
-            resultado = pesquisa (TL, func.codigo);
+            resultado = pesquisa (L, func.codigo);
 
             if ( resultado != NULL ) 
             {
@@ -236,15 +236,15 @@ void cadastrar_Funcionario_Final( TipoLista *TL )
             novo->conteudo = func;
             novo->proximo = NULL;
 
-            if ( TL->Ultimo == NULL )
+            if ( L->Ultimo == NULL )
             {
-                TL->Primeiro = novo;
-                TL->Ultimo = novo;
+                L->Primeiro = novo;
+                L->Ultimo = novo;
 
             } else {
 
-                TL->Ultimo->proximo = novo;
-                TL->Ultimo = novo;
+                L->Ultimo->proximo = novo;
+                L->Ultimo = novo;
 
             }
 
@@ -270,7 +270,7 @@ void cadastrar_Funcionario_Final( TipoLista *TL )
 }
 
 // Funcao para Cadastro de Funcionario no Inicio da Lista
-void cadastrar_Funcionario_Inicio( TipoLista *TL )
+void cadastrar_Funcionario_Inicio( TipoLista *L )
 {
 
     int resp;
@@ -290,7 +290,7 @@ void cadastrar_Funcionario_Inicio( TipoLista *TL )
             gotoxy(45,6);
             scanf("%d", &func.codigo);
 
-            resultado = pesquisa (TL, func.codigo);
+            resultado = pesquisa (L, func.codigo);
 
             if ( resultado != NULL ) 
             {
@@ -341,13 +341,13 @@ void cadastrar_Funcionario_Inicio( TipoLista *TL )
         {
             TipoApontador p = ( TipoApontador ) malloc (sizeof(TipoItem));
             p->conteudo = func;
-            p->proximo = TL->Primeiro;
-            TL->Primeiro = p;
+            p->proximo = L->Primeiro;
+            L->Primeiro = p;
 
-            if ( TL->Ultimo == NULL )
+            if ( L->Ultimo == NULL )
             {
                 
-                TL->Ultimo = p;
+                L->Ultimo = p;
 
             }
 
@@ -373,7 +373,7 @@ void cadastrar_Funcionario_Inicio( TipoLista *TL )
 }
 
 // Funcao para Cadastro de Funcionario em uma Posicao da Lista
-void cadastrar_Funcionario_Posicao( TipoLista *TL )
+void cadastrar_Funcionario_Posicao( TipoLista *L )
 {
 
     int resp;
@@ -397,7 +397,7 @@ void cadastrar_Funcionario_Posicao( TipoLista *TL )
             gotoxy(45,6);
             scanf("%d", &func.codigo);
 
-            resultado = pesquisa (TL, func.codigo);
+            resultado = pesquisa (L, func.codigo);
 
             if ( resultado != NULL ) 
             {
@@ -453,17 +453,17 @@ void cadastrar_Funcionario_Posicao( TipoLista *TL )
             if ( pos_lista == 1 )
             {
                 
-                p->proximo = TL->Primeiro;
-                TL->Primeiro = p;
+                p->proximo = L->Primeiro;
+                L->Primeiro = p;
 
-                if ( TL->Ultimo == NULL )
+                if ( L->Ultimo == NULL )
                 {
-                    TL->Ultimo = p;
+                    L->Ultimo = p;
                 }
 
             } else {
 
-                TipoApontador atual = TL->Primeiro;
+                TipoApontador atual = L->Primeiro;
 
                 int i;
 
@@ -489,7 +489,7 @@ void cadastrar_Funcionario_Posicao( TipoLista *TL )
 
                     if ( p->proximo == NULL )
                     {
-                        TL->Ultimo = p;
+                        L->Ultimo = p;
                     }
                 }
             }
@@ -516,21 +516,21 @@ void cadastrar_Funcionario_Posicao( TipoLista *TL )
 }
 
 // Funcao para Remover Funcionario no Final da Lista
-void remover_Funcionario_Final ( TipoLista *TL )
+void remover_Funcionario_Final ( TipoLista *L )
 {
     
     
 }
 
 // Funcao para Remover Funcionario em um Posicao da Lista
-void remover_Funcionario_Posicao ( TipoLista *TL )
+void remover_Funcionario_Posicao ( TipoLista *L )
 {
 
 
 }
 
 // Funcao para Remover Funcionario no Inicio da Lista
-void remover_Funcionario_Inicio ( TipoLista *TL )
+void remover_Funcionario_Inicio ( TipoLista *L )
 {
         
 
@@ -538,7 +538,7 @@ void remover_Funcionario_Inicio ( TipoLista *TL )
 }
 
 // Funcao para Menu de Consultar
-void menu_consultar_Funcionarios ( TipoLista *TL )
+void menu_consultar_Funcionarios ( TipoLista *L )
 {
 
     int opcao;
@@ -546,6 +546,9 @@ void menu_consultar_Funcionarios ( TipoLista *TL )
     do
     {
         tela();
+
+        gotoxy(20,03);
+        printf("--- MENU DE CONSULTA ---");
 
         gotoxy(24,7);
         printf("1 - Consultar em Lista");
@@ -563,6 +566,7 @@ void menu_consultar_Funcionarios ( TipoLista *TL )
         printf("5 - Sair do Menu de Consulta");
 
         gotoxy(07,23);
+        printf("Digite sua Opcao.: ");
         scanf("%d", &opcao);
 
         system("cls");
@@ -571,16 +575,16 @@ void menu_consultar_Funcionarios ( TipoLista *TL )
         {
 
             case 1:
-                consultar_lista(&TL);
+                consultar_lista(L);
                 break;
             case 2:
-                consultar_codigo_unico(&TL);
+                consultar_codigo_unico(L);
                 break;
             case 3:
-                consultar_ordem_alfabetica(&TL);
+                consultar_ordem_alfabetica(L);
                 break;
             case 4:
-                consultar_ordem_codigo(&TL);
+                consultar_ordem_codigo(L);
                 break;
             default:
                 break;
@@ -592,21 +596,605 @@ void menu_consultar_Funcionarios ( TipoLista *TL )
 }
 
 // Funcao para Consultar por Lista
-void consultar_lista ( TipoLista *TL )
+void consultar_lista ( TipoLista *L )
 {
-    
+    TipoApontador aux = L->Primeiro;
+    int lin = 7;
+
+    if (aux == NULL) {
+        tela();
+        gotoxy(24,7);
+        printf("Lista vazia! Nenhum funcionario cadastrado.");
+        getch();
+        return;
+    }
+
+    tela();
+
+    gotoxy(10,3);
+    printf("-- Lista de Todos os Funcionarios --");
+
+    gotoxy(2,5);  
+    printf("Cod:");
+
+    gotoxy(8,5);  
+    printf("Nome:");
+
+    gotoxy(36,5); 
+    printf("CPF:");
+
+    gotoxy(50,5); 
+    printf("Telefone:");
+
+    gotoxy(67,5); 
+    printf("Dt_Nasc:");
+
+    gotoxy(2,6);
+    printf("----------------------------------------------------------------------------");
+
+    while (aux != NULL) 
+    {
+        gotoxy(3, lin);  
+        printf("%d", aux->conteudo.codigo);
+
+        gotoxy(8, lin);  
+        printf("%s", aux->conteudo.nome);
+
+        gotoxy(33, lin); 
+        printf("%s", aux->conteudo.cpf);
+
+        gotoxy(50, lin); 
+        printf("%s", aux->conteudo.telefone);
+        
+        gotoxy(67, lin); 
+        printf("%s", aux->conteudo.dt_nasc);
+
+        lin++;
+
+        if (lin > 22 && aux->proximo != NULL) 
+        {
+
+            gotoxy(07,23);
+            printf("Pressione qualquer tecla para continuar...");
+
+            getch();
+            tela();
+
+            gotoxy(10,3);
+            printf("-- Lista de Todos os Funcionarios (continua) --");
+
+            gotoxy(2,5);  
+            printf("Cod:");
+
+            gotoxy(8,5);  
+            printf("Nome:");
+
+            gotoxy(36,5); 
+            printf("CPF:");
+
+            gotoxy(50,5); 
+            rintf("Telefone:");
+
+            gotoxy(67,5); 
+            printf("Dt_Nasc:");
+
+            gotoxy(2,6);
+            printf("----------------------------------------------------------------------------");
+            lin = 7;
+        }
+        aux = aux->proximo;
+    }
+
+    gotoxy(07,23);
+    printf("Ver salario, cargo e departamento use consulta por codigo especifico!");
+    getch();
+}
+
+
+
+// Funcao para Consultar por Codigo Especifico
+void consultar_codigo_unico ( TipoLista *L )
+{
+
+    int resp;
+    int codigo;
+    TipoApontador resultado;
+
+    do
+    {
+
+        tela();
+
+        gotoxy(24,5);
+        printf("CONSULTA DE FUNCIONARIO");
+
+        gotoxy(24,7);
+        printf("CODIGO.............: ");
+
+        gotoxy(45,7);
+        scanf("%d", &codigo);
+
+        resultado = pesquisa (L,codigo);
+
+        system("cls");
+        tela();
+
+        if ( resultado != NULL )
+        {
+
+            gotoxy(24,5);
+            printf("Funcionario Encontrado!");
+
+            gotoxy(24,7);
+            printf("CODIGO.............: %d", resultado->conteudo.codigo);
+
+            gotoxy(24,8);
+            printf("NOME...............: %s", resultado->conteudo.nome);
+
+            gotoxy(24,9);
+            printf("SALARIO............: %.2f", resultado->conteudo.salario);
+
+            gotoxy(24,10);
+            printf("ENDERECO...........: %s", resultado->conteudo.endereco);
+
+            gotoxy(24,11);
+            printf("DATA DE NASCIMENTO.: %s", resultado->conteudo.dt_nasc);
+
+            gotoxy(24,12);
+            printf("TELEFONE...........: %s", resultado->conteudo.telefone);
+
+            gotoxy(24,13);
+            printf("CPF................: %s", resultado->conteudo.cpf);
+
+            gotoxy(24,14);
+            printf("CARGO..............: %s", resultado->conteudo.cargo);
+
+            gotoxy(24,15);
+            printf("DEPARTAMENTO.......: %s", resultado->conteudo.departamento);
+
+        } else {
+
+            gotoxy(24,7);
+            printf("Funcionario com codigo %d nao encontrado!", codigo);
+
+        }
+
+        gotoxy(07,23);
+        printf("Deseja realizar outra consulta? (1 = Sim, 2 = Nao) ");
+        scanf("%d", &resp);
+
+    } while (resp == 1);
 
 }
 
-// Funcao para Alterar Funcionario da Lista
-void alterar_Funcionario ( TipoLista *TL )
+// Funcao para Consultar por Ordem Alfabetica
+void consultar_ordem_alfabetica ( TipoLista *L )
 {
+    int n = 0;
+    TipoApontador aux = L->Primeiro;
+
+    while (aux != NULL) 
+    { 
+        n++; aux = aux->proximo; 
+    }
+    if (n == 0) { 
+        tela(); 
+        
+        gotoxy(24,7); 
+        printf("Lista vazia!"); 
+        getch(); 
+
+        return; 
+    }
+
+    reg_funcionario *vet = (reg_funcionario*) malloc(n * sizeof(reg_funcionario));
+    aux = L->Primeiro;
+
+    for (int i=0; i<n; i++) 
+    { 
+        vet[i] = aux->conteudo; 
+        aux = aux->proximo; 
+    }
+
+    for (int i=0; i<n-1; i++) {
+        for (int j=i+1; j<n; j++) {
+            if (strcmp(vet[i].nome, vet[j].nome) > 0) {
+                reg_funcionario tmp = vet[i]; 
+                vet[i] = vet[j]; 
+                vet[j] = tmp;
+            }
+        }
+    }
+
+    int lin = 7;
+    tela();
+
+    gotoxy(10,3);
+    printf("-- Lista Funcionarios Ordem Alfabetica --");
+
+    gotoxy(2,5);  
+    printf("Cod:");
+
+    gotoxy(8,5);  
+    printf("Nome:");
+
+    gotoxy(36,5); 
+    printf("CPF:");
+
+    gotoxy(50,5); 
+    printf("Telefone:");
+
+    gotoxy(67,5); 
+    printf("Dt_Nasc:");
+
+    gotoxy(2,6);
+    printf("----------------------------------------------------------------------------");
+
+    for (int i=0; i<n; i++) 
+    {
+        gotoxy(3, lin);  
+        printf("%d", vet[i].codigo);
+
+        gotoxy(8, lin);  
+        printf("%s", vet[i].nome);
+
+        gotoxy(33, lin); 
+        printf("%s", vet[i].cpf);
+
+        gotoxy(50, lin); 
+        printf("%s", vet[i].telefone);
+
+        gotoxy(67, lin); 
+        printf("%s", vet[i].dt_nasc);
+
+        lin++;
+        if (lin > 22 && i < n-1) 
+        {
+            
+            gotoxy(07,23);
+            printf("Pressione qualquer tecla para continuar...");
+
+            getch();
+            tela();
+
+            gotoxy(10,3);
+            printf("-- Lista Funcionarios Ordem Alfabetica (continua) --");
+
+            gotoxy(2,5);  
+            printf("Cod:");
+
+            gotoxy(8,5);  
+            printf("Nome:");
+
+            gotoxy(36,5); 
+            printf("CPF:");
+
+            gotoxy(50,5); 
+            printf("Telefone:");
+
+            gotoxy(67,5); 
+            printf("Dt_Nasc:");
+
+            gotoxy(2,6);
+            printf("----------------------------------------------------------------------------");
+            lin = 7;
+        }
+    }
+
+    free(vet);
+    gotoxy(07,23);
+    printf("Ver salario, cargo e departamento use consulta por codigo especifico!");
+    getch();
+}
 
 
+// Funcao para Consultar por Ordem de Codigo
+void consultar_ordem_codigo ( TipoLista *L )
+{
+    int n = 0;
+    TipoApontador aux = L->Primeiro;
+
+    while (aux != NULL) 
+    { 
+        n++; aux = aux->proximo; 
+    }
+    if (n == 0) 
+    {
+        tela(); 
+        gotoxy(24,7); 
+        printf("Lista vazia!"); 
+        getch(); 
+
+        return; 
+    }
+
+    reg_funcionario *vet = (reg_funcionario*) malloc(n * sizeof(reg_funcionario));
+    aux = L->Primeiro;
+    for (int i=0; i<n; i++) 
+    { 
+        vet[i] = aux->conteudo; 
+        aux = aux->proximo; 
+    }
+
+    for (int i=0; i<n-1; i++) {
+        for (int j=i+1; j<n; j++) {
+            if (vet[i].codigo > vet[j].codigo) {
+                reg_funcionario tmp = vet[i]; 
+                vet[i] = vet[j]; 
+                vet[j] = tmp;
+            }
+        }
+    }
+
+    int lin = 7;
+    tela();
+
+    gotoxy(10,3);
+    printf("-- Lista Funcionarios Ordem de Codigo --");
+
+    gotoxy(2,5);  
+    printf("Cod:");
+
+    gotoxy(8,5);  
+    printf("Nome:");
+
+    gotoxy(36,5); 
+    printf("CPF:");
+
+    gotoxy(50,5); 
+    printf("Telefone:");
+
+    gotoxy(67,5); 
+    printf("Dt_Nasc:");
+
+    gotoxy(2,6);
+    printf("----------------------------------------------------------------------------");
+
+    for (int i=0; i<n; i++) 
+    {
+        gotoxy(3, lin);  
+        printf("%d", vet[i].codigo);
+
+        gotoxy(8, lin);  
+        printf("%s", vet[i].nome);
+
+        gotoxy(33, lin); 
+        printf("%s", vet[i].cpf);
+
+        gotoxy(50, lin); 
+        printf("%s", vet[i].telefone);
+
+        gotoxy(67, lin); 
+        printf("%s", vet[i].dt_nasc);
+
+        lin++;
+        if (lin > 22 && i < n-1) 
+        {
+
+            gotoxy(07,23);
+            printf("Pressione qualquer tecla para continuar...");
+
+            getch();
+            tela();
+
+            gotoxy(10,3);
+            printf("-- Lista Funcionarios Ordem de Codigo (continua) --");
+
+            gotoxy(2,5);  
+            printf("Cod:");
+
+            gotoxy(8,5);  
+            printf("Nome:");
+
+            gotoxy(36,5); 
+            printf("CPF:");
+
+            gotoxy(50,5); 
+            printf("Telefone:");
+
+            gotoxy(67,5); 
+            printf("Dt_Nasc:");
+
+            gotoxy(2,6);
+            printf("----------------------------------------------------------------------------");
+
+            lin = 7;
+        }
+    }
+
+    free(vet);
+    gotoxy(07,23);
+    printf("Ver salario, cargo e departamento use consulta por codigo especifico!");
+    getch();
+}
+
+
+// Funcao para Alterar Funcionario da Lista
+void alterar_Funcionario ( TipoLista *L )
+{
+    int resp; 
+    int codigo; 
+    int opcao;
+    TipoApontador resultado;
+
+    do {
+        tela();
+        gotoxy(24,5);
+        printf("ALTERACAO DE FUNCIONARIO");
+
+        gotoxy(24,7);
+        printf("DIGITE O CODIGO....: ");
+        gotoxy(45,7);
+        scanf("%d", &codigo);
+
+        resultado = pesquisa(L, codigo);
+
+        system("cls");
+        tela();
+
+        if (resultado == NULL) 
+        {
+            gotoxy(24,9);
+            printf("Funcionario nao encontrado!");
+
+        } else {
+
+            // Exibir dados atuais
+            gotoxy(24,5); 
+            printf("Funcionario Encontrado!");
+
+            gotoxy(24,7); 
+            printf("CODIGO.............: %d", resultado->conteudo.codigo);
+
+            gotoxy(24,8); 
+            printf("1 - NOME...............: %s", resultado->conteudo.nome);
+
+            gotoxy(24,9); 
+            printf("2 - SALARIO............: %.2f", resultado->conteudo.salario);
+
+            gotoxy(24,10); 
+            printf("3 - ENDERECO...........: %s", resultado->conteudo.endereco);
+
+            gotoxy(24,11); 
+            printf("4 - DATA DE NASCIMENTO.: %s", resultado->conteudo.dt_nasc);
+
+            gotoxy(24,12); 
+            printf("5 - TELEFONE...........: %s", resultado->conteudo.telefone);
+
+            gotoxy(24,13); 
+            printf("6 - CPF................: %s", resultado->conteudo.cpf);
+
+            gotoxy(24,14); 
+            printf("7 - CARGO..............: %s", resultado->conteudo.cargo);
+
+            gotoxy(24,15); 
+            printf("8 - DEPARTAMENTO.......: %s", resultado->conteudo.departamento);
+
+            gotoxy(07,23);
+            printf("Qual campo deseja alterar? ");
+            scanf("%d", &opcao);
+
+            system("cls");
+            tela();
+
+            switch(opcao) 
+            {
+
+                case 1:
+
+                    gotoxy(24,7); 
+                    printf("NOME ATUAL.........: %s", resultado->conteudo.nome);
+
+                    gotoxy(24,8); 
+                    printf("NOME NOVO..........: ");
+
+                    scanf(" %49[^\n]", resultado->conteudo.nome);
+
+                    break;
+
+                case 2:
+
+                    gotoxy(24,7); 
+                    printf("SALARIO ATUAL......: %.2f", resultado->conteudo.salario);
+
+                    gotoxy(24,8); 
+                    printf("SALARIO NOVO.......: ");
+
+                    scanf("%f", &resultado->conteudo.salario);
+
+                    break;
+
+                case 3:
+
+                    gotoxy(24,7); 
+                    printf("ENDERECO ATUAL.....: %s", resultado->conteudo.endereco);
+
+                    gotoxy(24,8); 
+                    printf("ENDERECO NOVO......: ");
+
+                    scanf(" %59[^\n]", resultado->conteudo.endereco);
+
+                    break;
+
+                case 4:
+
+                    gotoxy(24,7); 
+                    printf("DATA NASC. ATUAL...: %s", resultado->conteudo.dt_nasc);
+
+                    gotoxy(24,8); printf("DATA NASC. NOVA....: ");
+
+                    scanf(" %14s", resultado->conteudo.dt_nasc);
+
+                    break;
+
+                case 5:
+
+                    gotoxy(24,7); 
+                    printf("TELEFONE ATUAL.....: %s", resultado->conteudo.telefone);
+
+                    gotoxy(24,8); 
+                    printf("TELEFONE NOVO......: ");
+
+                    scanf(" %19s", resultado->conteudo.telefone);
+
+                    break;
+
+                case 6:
+
+                    gotoxy(24,7); 
+                    printf("CPF ATUAL..........: %s", resultado->conteudo.cpf);
+
+                    gotoxy(24,8); 
+                    printf("CPF NOVO...........: ");
+
+                    scanf(" %14s", resultado->conteudo.cpf);
+
+                    break;
+                case 7:
+
+                    gotoxy(24,7); 
+                    printf("CARGO ATUAL........: %s", resultado->conteudo.cargo);
+
+                    gotoxy(24,8); 
+                    printf("CARGO NOVO.........: ");
+
+                    scanf(" %39[^\n]", resultado->conteudo.cargo);
+                    break;
+
+                case 8:
+
+                    gotoxy(24,7); 
+                    printf("DEPARTAMENTO ATUAL.: %s", resultado->conteudo.departamento);
+
+                    gotoxy(24,8); 
+                    printf("DEPARTAMENTO NOVO..: ");
+
+                    scanf(" %29[^\n]", resultado->conteudo.departamento);
+                    break;
+
+                default:
+
+                    gotoxy(24,7); 
+                    printf("Opcao invalida!");
+
+                    break;
+            }
+
+            system("cls");
+            tela();
+            gotoxy(24,7);
+            printf("Alteracao realizada com sucesso!");
+        }
+
+        gotoxy(07,23);
+        printf("Deseja alterar outro funcionario? (1 = Sim, 2 = Nao): ");
+        scanf("%d", &resp);
+
+    } while (resp == 1);
 }
 
 // Funcao para Gravar no Disco
-void gravar_lista( TipoLista *TL )
+void gravar_lista( TipoLista *L )
 {
 
     int i;
@@ -627,7 +1215,7 @@ void gravar_lista( TipoLista *TL )
 
     }
 
-    TipoApontador aux = TL->Primeiro;
+    TipoApontador aux = L->Primeiro;
 
     while ( aux != NULL ) 
     {
@@ -647,7 +1235,7 @@ void gravar_lista( TipoLista *TL )
 }
 
 // Funcao para Ler os Arquivos do Disco
-void le_arquivo_lista ( TipoLista *TL )
+void le_arquivo_lista ( TipoLista *L )
 {
 
     FILE *ptr;
@@ -658,13 +1246,16 @@ void le_arquivo_lista ( TipoLista *TL )
     if ( ptr == NULL ) 
     {
 
-        TL->Primeiro = NULL;
-        TL->Ultimo = NULL;
+        L->Primeiro = NULL;
+        L->Ultimo = NULL;
 
         tela();
+
         gotoxy(25,03);
         printf("Nenhum Arquivo Encontrado. Lista Iniciada Vazia!");
+
         getch();
+
         return;
 
     }
@@ -678,26 +1269,28 @@ void le_arquivo_lista ( TipoLista *TL )
         p->conteudo = func;
         p->proximo = NULL;
 
-        if ( TL->Primeiro == NULL )
+        if ( L->Primeiro == NULL )
         {
 
-            TL->Primeiro = p;
+            L->Primeiro = p;
 
         } else {
 
-            TL->Ultimo->proximo = p;
+            L->Ultimo->proximo = p;
 
         }
 
-        TL->Ultimo = p;
+        L->Ultimo = p;
 
     }
 
     fclose ( ptr );
 
     tela();
+    
     gotoxy(25,03);
     printf("Dados Carregados do Arquivo com Sucesso!");
+
     getch();
 
 }
@@ -708,12 +1301,12 @@ int main()
 
     // Variaveis inicializadas no Main ( Programa principal )
     int opcao;
-    TipoLista TL;
-    TL.Primeiro = NULL;
-    TL.Ultimo = NULL;
+    TipoLista L;
+    L.Primeiro = NULL;
+    L.Ultimo = NULL;
 
     // Carregar dados guardados no Disco
-    le_arquivo_lista(&TL);
+    le_arquivo_lista(&L);
 
     // Layout
     system("color 17");
@@ -751,38 +1344,38 @@ int main()
         {
 
             case 1:
-                cadastrar_Funcionario_Final(&TL);
+                cadastrar_Funcionario_Final(&L);
                 break;
             case 2:
-                cadastrar_Funcionario_Inicio(&TL);
+                cadastrar_Funcionario_Inicio(&L);
                 break;
             case 3:
-                cadastrar_Funcionario_Posicao(&TL);
+                cadastrar_Funcionario_Posicao(&L);
                 break;
             /*
             case 4:
-                remover_Funcionario_Final(&TL);
+                remover_Funcionario_Final(&L);
                 break;
             case 5:
-                remover_Funcionario_Posicao(&TL);
+                remover_Funcionario_Posicao(&L);
                 break;
             case 6:
-                remover_Funcionario_Inicio(&TL);
+                remover_Funcionario_Inicio(&L);
                 break;
+            */
             case 7:
-                menu_consultar_Funcionarios(&TL); Consultar em fichario e lista ( ordem alfabetica ou codigo )
+                menu_consultar_Funcionarios(&L);
                 break;
             case 8:
-                alterar_Funcionario(&TL);
+                alterar_Funcionario(&L);
                 break;
-                */
             default:
                 break;
         }
         
     } while ( opcao != 9 );
 
-    gravar_lista(&TL);
+    gravar_lista(&L);
 
     return 0;
 
