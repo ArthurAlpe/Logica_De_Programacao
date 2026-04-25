@@ -188,20 +188,20 @@ void menu_cadastros ( TipoLista *L )
     {
         tela();
 
-        gotoxy(20,03);
+        gotoxy(24,7);
         printf("--- MENU DE CADASTROS ---");
 
-        gotoxy(24,7);
+        gotoxy(20,9);
         printf("1 - Cadastrar funcionario no Final da Lista");
 
-        gotoxy(24,9);
+        gotoxy(20,11);
 
         printf("2 - Cadastrar funcionario no Inicio da Lista");
 
-        gotoxy(24,11);
+        gotoxy(20,13);
         printf("3 - Cadastrar funcionario em uma Posicao da Lista");
 
-        gotoxy(24,13);
+        gotoxy(20,17);
         printf("4 - Sair do Menu de Cadastros");
 
         gotoxy(07,23);
@@ -590,18 +590,18 @@ void menu_remover ( TipoLista *L )
     {
         tela();
 
-        gotoxy(20,03);
+        gotoxy(24,7);
         printf("--- MENU DE REMOVER ---");
 
-        gotoxy(24,07);
+        gotoxy(20,9);
         printf("1 - Remover funcionario no Final da Lista");
-        gotoxy(24,9);
+        gotoxy(20,11);
         printf("2 - Remover funcionario em uma Posicao da Lista");
-        gotoxy(24,11);
+        gotoxy(20,13);
         printf("3 - Remover funcionario no Inicio da Lista");
-        gotoxy(24,13);
+        gotoxy(20,15);
         printf("4 - Remover funcionario por Codigo");
-        gotoxy(24,15);
+        gotoxy(20,18);
         printf("5 - Sair do Menu de Remover");
 
         gotoxy(07,23);
@@ -960,22 +960,22 @@ void menu_consultar_Funcionarios ( TipoLista *L )
     {
         tela();
 
-        gotoxy(20,03);
+        gotoxy(24,7);
         printf("--- MENU DE CONSULTA ---");
 
-        gotoxy(24,7);
+        gotoxy(20,9);
         printf("1 - Consultar em Lista");
 
-        gotoxy(24,9);
+        gotoxy(20,11);
         printf("2 - Consultar por Codigo Especifico");
 
-        gotoxy(24,11);
+        gotoxy(20,13);
         printf("3 - Consultar por Ordem Alfabetica");
 
-        gotoxy(24,13);
+        gotoxy(20,15);
         printf("4 - Consultar por Ordem De Codigo");
 
-        gotoxy(24,15);
+        gotoxy(20,18);
         printf("5 - Sair do Menu de Consulta");
 
         gotoxy(07,23);
@@ -1483,6 +1483,9 @@ void alterar_Funcionario ( TipoLista *L )
             gotoxy(24,15); 
             printf("8 - DEPARTAMENTO.......: %s", resultado->conteudo.departamento);
 
+            gotoxy(24,16);
+            printf("0 - CANCELAR");
+
             gotoxy(07,23);
             printf("Qual campo deseja alterar? ");
             scanf("%d", &opcao);
@@ -1493,6 +1496,13 @@ void alterar_Funcionario ( TipoLista *L )
             switch(opcao) 
             {
 
+                case 0:
+
+                    gotoxy(24,7);
+                    printf("Nenhuma alteracao realizada.");
+
+                    break;
+                    
                 case 1:
 
                     gotoxy(24,7); 
