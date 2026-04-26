@@ -11,12 +11,12 @@ Explicacao do codigo/programa:
     2 - Remover ( No Inicio e no Final da lista e pelo Codigo cadastrado )
     3 - Consultas ( Codigo Especifico, Ordem de codigos, Ordem alfabetica e Lista )
     4 - Alteracao ( Escolhendo o Codigo do funcionario, podendo alterar qualquer informacao do cadastro )
-    5 - Cor ( Uma simples forma do usuario poder ter a personalizao diferente com algumas pre definicoes )
+    5 - Cor ( Uma simples forma do usuario poder ter a personalizçao diferente com algumas pre definicoes )
     6 - Todos os cadastros feitos vao ser armazenados no disco podendo manter o controle de qualquer
     cadastro novo e antigo, facilitando a manipulacao e a alteracao de qualquer informacao desejada
-    7 - Controle de cadastros feitos para evitar falta de informacao durante a execucao, ex.: O usuario deseja
-    criar um cadastro de um funcionario na posicao 30 mas apenas possui 15 cadastros feitos, o programa ja mostra
-    no menu do programa mas tambem passa por uma validacao mostrar que nao e possivel criar um cadastro na posicao
+    7 - O controle de cadastros feito para evitar falta de informacao durante a execucao, ex.: O usuario deseja
+    criar um cadastro de um funcionario na posicao 30, mas apenas possui 15 cadastros feitos, logo o programa mostra
+    no menu, e tambem durante o uso o programa passa por uma validacao, na qual mostra que nao e possivel criar um cadastro na posicao
     30 pois possui apenas 15 cadastros feitos naquele momento. Evitando qualquer tipo de problema com o usuario
 
 */
@@ -159,6 +159,38 @@ void tela_Funcionario()
     printf("CARGO..............: ");
     gotoxy(24,14);
     printf("DEPARTAMENTO.......: ");
+
+}
+
+// Função auxiliar para mostrar todos os dados de um funcionário
+void mostrar_Funcionario(reg_funcionario Func) 
+{
+    gotoxy(24,5);  
+    printf("CODIGO.............: %d", Func.codigo);
+
+    gotoxy(24,6);  
+    printf("NOME...............: %s", Func.nome);
+
+    gotoxy(24,7);  
+    printf("SALARIO............: %.2f", Func.salario);
+
+    gotoxy(24,8);  
+    printf("ENDERECO...........: %s", Func.endereco);
+
+    gotoxy(24,9);  
+    printf("DATA DE NASCIMENTO.: %s", Func.dt_nasc);
+
+    gotoxy(24,10); 
+    printf("TELEFONE...........: %s", Func.telefone);
+
+    gotoxy(24,11); 
+    printf("CPF................: %s", Func.cpf);
+
+    gotoxy(24,12); 
+    printf("CARGO..............: %s", Func.cargo);
+
+    gotoxy(24,13); 
+    printf("DEPARTAMENTO.......: %s", Func.departamento);
 
 }
 
@@ -655,14 +687,12 @@ void menu_remover ( TipoLista *L )
 }
 
 // Funcao para Remover Funcionario no Final da Lista
-void remover_Funcionario_Final(TipoLista *L) 
+void remover_Funcionario_Final( TipoLista *L ) 
 {
-
-    if (L->Primeiro == NULL) 
+    if ( L->Primeiro == NULL ) 
     {
         tela();
-
-        gotoxy(24,7);
+        gotoxy(24,7); 
         printf("Lista vazia! Nenhum funcionario para remover.");
 
         getch();
@@ -681,38 +711,32 @@ void remover_Funcionario_Final(TipoLista *L)
     }
 
     tela();
-
-    gotoxy(24,7);
-    printf("Deseja apagar este usuario? Codigo: %d, Nome: %s (1=Sim, 2=Nao): ", atual->conteudo.codigo, atual->conteudo.nome);
-
-    int confirma;
+    mostrar_Funcionario(atual->conteudo);
+    gotoxy(24,15);
+    printf("Deseja apagar este usuario? (1=Sim, 2=Nao): ");
+    int confirma; 
     scanf("%d", &confirma);
 
-    if (confirma == 1) 
+    if ( confirma == 1 ) 
     {
-        if (anterior == NULL) // só tinha um elemento
-        { 
+        if ( anterior == NULL ) 
+        {
             L->Primeiro = NULL;
             L->Ultimo = NULL;
-
         } else {
-
             anterior->proximo = NULL;
             L->Ultimo = anterior;
         }
 
         free(atual);
 
-        tela();
-
-        gotoxy(24,7);
+        tela(); 
+        gotoxy(24,7); 
         printf("Funcionario removido com sucesso!");
 
     } else {
-
-        tela();
-
-        gotoxy(24,7);
+        tela(); 
+        gotoxy(24,7); 
         printf("Remocao cancelada!");
 
     }
@@ -722,50 +746,45 @@ void remover_Funcionario_Final(TipoLista *L)
 }
 
 // Funcao para Remover Funcionario em uma Posicao da Lista
-void remover_Funcionario_Posicao(TipoLista *L) 
+void remover_Funcionario_Posicao( TipoLista *L ) 
 {
-
-    if (L->Primeiro == NULL) 
+    if ( L->Primeiro == NULL ) 
     {
-
-        tela();
-
-        gotoxy(24,7);
+        tela(); 
+        gotoxy(24,7); 
         printf("Lista vazia!");
 
         getch();
 
         return;
-
     }
 
     int pos;
+    tela(); 
 
-    tela();
-
-    gotoxy(24,7);
+    gotoxy(24,7); 
     printf("Digite a posicao a remover: ");
+
     scanf("%d", &pos);
 
     int total = contar_elementos(L);
 
-    if (pos < 1 || pos > total) 
+    if ( pos < 1 || pos > total ) 
     {
-
-        tela();
-
-        gotoxy(24,7);
+        tela(); 
+        gotoxy(24,7); 
         printf("Posicao invalida! Existem %d funcionarios.", total);
 
-        getch();
+        getch(); 
 
         return;
+
     }
 
     TipoApontador atual = L->Primeiro;
     TipoApontador anterior = NULL;
-
-    for (int i=1; i<pos; i++) 
+    
+    for ( int i=1; i<pos; i++ ) 
     {
         anterior = atual;
         atual = atual->proximo;
@@ -773,16 +792,18 @@ void remover_Funcionario_Posicao(TipoLista *L)
 
     tela();
 
-    gotoxy(24,7);
-    printf("Deseja apagar este usuario? Codigo: %d, Nome: %s (1=Sim, 2=Nao): ", atual->conteudo.codigo, atual->conteudo.nome);
+    mostrar_Funcionario(atual->conteudo);
 
-    int confirma;
+    gotoxy(24,15); 
+    printf("Deseja apagar este usuario? (1=Sim, 2=Nao): ");
+
+    int confirma; 
     scanf("%d", &confirma);
 
-    if (confirma == 1) 
+    if ( confirma == 1 ) 
     {
-        if (anterior == NULL) // remover primeiro
-        { 
+        if ( anterior == NULL ) 
+        {
             L->Primeiro = atual->proximo;
 
             if (L->Primeiro == NULL) 
@@ -791,9 +812,7 @@ void remover_Funcionario_Posicao(TipoLista *L)
             }
 
         } else {
-
             anterior->proximo = atual->proximo;
-
             if (anterior->proximo == NULL) 
             {
                 L->Ultimo = anterior;
@@ -802,35 +821,34 @@ void remover_Funcionario_Posicao(TipoLista *L)
 
         free(atual);
 
-        tela();
-
-        gotoxy(24,7);
+        tela(); 
+        gotoxy(24,7); 
         printf("Funcionario removido com sucesso!");
 
     } else {
 
-        tela();
+        tela(); 
 
-        gotoxy(24,7);
+        gotoxy(24,7); 
         printf("Remocao cancelada!");
     }
 
     getch();
+
 }
 
+
 // Funcao para Remover Funcionario no Inicio da Lista
-void remover_Funcionario_Inicio(TipoLista *L) 
+void remover_Funcionario_Inicio( TipoLista *L ) 
 {
-
-    if (L->Primeiro == NULL) 
+    if ( L->Primeiro == NULL ) 
     {
-        tela();
-
-        gotoxy(24,7);
+        tela(); 
+        gotoxy(24,7); 
         printf("Lista vazia!");
 
-        getch();
-
+        getch(); 
+        
         return;
 
     }
@@ -839,15 +857,16 @@ void remover_Funcionario_Inicio(TipoLista *L)
 
     tela();
 
-    gotoxy(24,7);
-    printf("Deseja apagar este usuario? Codigo: %d, Nome: %s (1=Sim, 2=Nao): ", atual->conteudo.codigo, atual->conteudo.nome);
+    mostrar_Funcionario(atual->conteudo);
 
-    int confirma;
+    gotoxy(24,15); 
+    printf("Deseja apagar este usuario? (1=Sim, 2=Nao): ");
+
+    int confirma; 
     scanf("%d", &confirma);
 
-    if (confirma == 1) 
+    if ( confirma == 1 ) 
     {
-
         L->Primeiro = atual->proximo;
 
         if (L->Primeiro == NULL) 
@@ -857,16 +876,15 @@ void remover_Funcionario_Inicio(TipoLista *L)
 
         free(atual);
 
-        tela();
+        tela(); 
 
-        gotoxy(24,7);
+        gotoxy(24,7); 
         printf("Funcionario removido com sucesso!");
 
     } else {
 
-        tela();
-
-        gotoxy(24,7);
+        tela(); 
+        gotoxy(24,7); 
         printf("Remocao cancelada!");
 
     }
@@ -875,65 +893,70 @@ void remover_Funcionario_Inicio(TipoLista *L)
 
 }
 
+
 // Funcao para Remover Funcionario pelo Codigo
-void remover_Funcionario_Codigo(TipoLista *L) 
+void remover_Funcionario_Codigo( TipoLista *L ) 
 {
-
-    if (L->Primeiro == NULL) 
+    if ( L->Primeiro == NULL ) 
     {
-        tela();
 
-        gotoxy(24,7);
+        tela(); 
+        gotoxy(24,7); 
         printf("Lista vazia!");
 
-        getch();
-
+        getch(); 
+        
         return;
 
     }
 
     int codigo;
+    tela(); 
 
-    tela();
-
-    gotoxy(24,7);
+    gotoxy(24,7); 
     printf("Digite o codigo do funcionario a remover: ");
+
     scanf("%d", &codigo);
 
     TipoApontador atual = L->Primeiro;
     TipoApontador anterior = NULL;
 
-    while (atual != NULL && atual->conteudo.codigo != codigo) 
+    while ( atual != NULL && atual->conteudo.codigo != codigo ) 
     {
         anterior = atual;
         atual = atual->proximo;
     }
 
-    if (atual == NULL) 
+    if ( atual == NULL ) 
     {
-        tela();
 
-        gotoxy(24,7);
+        tela(); 
+
+        gotoxy(24,7); 
         printf("Funcionario com codigo %d nao encontrado!", codigo);
 
-        getch();
-
+        getch(); 
+        
         return;
 
     }
 
     tela();
-    gotoxy(24,7);
-    printf("Deseja apagar este usuario? Codigo: %d, Nome: %s (1=Sim, 2=Nao): ", atual->conteudo.codigo, atual->conteudo.nome);
 
-    int confirma;
+    mostrar_Funcionario(atual->conteudo);
+
+    gotoxy(24,15); 
+    printf("Deseja apagar este usuario? (1=Sim, 2=Nao): ");
+
+    int confirma; 
     scanf("%d", &confirma);
 
-    if (confirma == 1) 
+    if ( confirma == 1 ) 
     {
-        if (anterior == NULL)  // remover primeiro
+        if ( anterior == NULL ) 
         {
             L->Primeiro = atual->proximo;
+
             if (L->Primeiro == NULL) 
             {
                 L->Ultimo = NULL;
@@ -942,26 +965,23 @@ void remover_Funcionario_Codigo(TipoLista *L)
         } else {
 
             anterior->proximo = atual->proximo;
-
             if (anterior->proximo == NULL) 
             {
                 L->Ultimo = anterior;
             }
-
         }
 
         free(atual);
 
-        tela();
-
-        gotoxy(24,7);
+        tela(); 
+        gotoxy(24,7); 
         printf("Funcionario removido com sucesso!");
-
+        
     } else {
 
-        tela();
+        tela(); 
 
-        gotoxy(24,7);
+        gotoxy(24,7); 
         printf("Remocao cancelada!");
 
     }
@@ -969,6 +989,7 @@ void remover_Funcionario_Codigo(TipoLista *L)
     getch();
 
 }
+
 
 // Funcao para Menu de Consultar
 void menu_consultar_Funcionarios ( TipoLista *L )
